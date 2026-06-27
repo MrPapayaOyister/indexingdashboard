@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-base: #1A1A1A;
+  --color-surface-1: rgba(255, 255, 255, 0.03);
+  --color-surface-2: rgba(255, 255, 255, 0.06);
+  --color-surface-3: rgba(255, 255, 255, 0.1);
+  --color-overlay: rgba(10, 10, 10, 0.85);
+
+  --color-primary: #FFFFFF;
+  --color-secondary: #888888;
+  --color-muted: #444444;
+  --color-inverse: #000000;
+
+  --color-border-subtle: rgba(255, 255, 255, 0.04);
+  --color-border-default: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
+  --color-border-accent: rgba(255, 255, 255, 0.3);
+
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Glassmorphism */
+  --shadow-glass: 0 4px 24px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.7);
+
+  /* Neumorphism raised — sits above the #1A1A1A surface */
+  --shadow-neu-raised: 6px 6px 16px rgba(0, 0, 0, 0.55), -4px -4px 10px rgba(255, 255, 255, 0.03);
+  /* Neumorphism inset — pushed into the surface */
+  --shadow-neu-inset: inset 4px 4px 10px rgba(0, 0, 0, 0.5), inset -3px -3px 8px rgba(255, 255, 255, 0.025);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+
+  /* Semantic aliases (all greyscale / white) */
+  --color-violet: #FFFFFF;
+  --color-cyan: #888888;
+  --color-amber: #555555;
+  --color-success: #FFFFFF;
+  --color-warning: #888888;
+  --color-error: #555555;
+  --color-processing: #FFFFFF;
+}
+
+@layer base {
+  * {
+    @apply border-border-default;
+  }
+
+  body {
+    background-color: var(--color-base);
+    color: var(--color-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* Hide ALL scrollbars */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  * {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

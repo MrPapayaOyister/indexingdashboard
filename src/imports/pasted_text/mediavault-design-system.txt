@@ -1,0 +1,439 @@
+Create a Figma design system foundations page for a media intelligence platform called "MediaVault".
+
+## Visual Language
+Style: Glassmorphism on a deep dark base. NOT a neon cyberpunk look — refined, calm, professional.
+Base background: Deep navy #0A0D1A with a subtle radial violet gradient at top-left (#1A0A3A → transparent) and a cyan gradient at bottom-right (#0A2A3A → transparent). These are decorative background layers only.
+
+## Color Tokens
+Define these as Figma color styles with exact names:
+
+Background:
+- bg/base: #0A0D1A
+- bg/surface-1: rgba(255,255,255,0.04) — deepest glass
+- bg/surface-2: rgba(255,255,255,0.07) — card glass
+- bg/surface-3: rgba(255,255,255,0.11) — elevated glass (modals, dropdowns)
+- bg/overlay: rgba(10,13,26,0.85) — dark overlay
+
+Accent:
+- accent/violet: #7C5CFC
+- accent/violet-glow: rgba(124,92,252,0.25)
+- accent/cyan: #22D3EE
+- accent/cyan-glow: rgba(34,211,238,0.20)
+- accent/amber: #F59E0B
+- accent/amber-glow: rgba(245,158,11,0.20)
+- accent/red: #F43F5E
+
+Text:
+- text/primary: #F1F5F9
+- text/secondary: #94A3B8
+- text/muted: #475569
+- text/inverse: #0A0D1A
+
+Border:
+- border/subtle: rgba(255,255,255,0.08)
+- border/default: rgba(255,255,255,0.14)
+- border/strong: rgba(255,255,255,0.24)
+- border/accent: rgba(124,92,252,0.50)
+
+Status:
+- status/success: #10B981
+- status/warning: #F59E0B
+- status/error: #F43F5E
+- status/info: #22D3EE
+- status/processing: #7C5CFC
+
+## Typography Tokens
+Font: Inter (primary), JetBrains Mono (code/metadata only)
+
+Define these as Figma text styles:
+- type/display: Inter 600, 48px, line-height 1.1, tracking -0.02em, color text/primary
+- type/h1: Inter 600, 32px, line-height 1.2, tracking -0.01em
+- type/h2: Inter 600, 24px, line-height 1.3
+- type/h3: Inter 600, 18px, line-height 1.4
+- type/h4: Inter 500, 15px, line-height 1.4
+- type/body-lg: Inter 400, 16px, line-height 1.6
+- type/body: Inter 400, 14px, line-height 1.6
+- type/body-sm: Inter 400, 12px, line-height 1.5
+- type/label: Inter 500, 12px, line-height 1.4, tracking 0.04em, uppercase
+- type/mono: JetBrains Mono 400, 13px
+
+## Spacing Scale
+4px base unit. Define spacing styles:
+space/1=4px, space/2=8px, space/3=12px, space/4=16px, space/5=20px, space/6=24px, space/8=32px, space/10=40px, space/12=48px, space/16=64px
+
+## Border Radius
+radius/sm=6px, radius/md=10px, radius/lg=16px, radius/xl=24px, radius/pill=9999px
+
+## Shadow / Glow Styles
+- shadow/glass: 0 4px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.10)
+- shadow/card: 0 8px 40px rgba(0,0,0,0.5)
+- glow/violet: 0 0 20px rgba(124,92,252,0.35)
+- glow/cyan: 0 0 20px rgba(34,211,238,0.25)
+
+## Glass Card Component (Base Atom)
+Build a base glass card component:
+- Fill: bg/surface-2
+- Border: 1px, border/default
+- Border radius: radius/lg
+- Shadow: shadow/glass
+- backdrop-filter annotation: blur(16px) saturate(180%)
+- Padding variant: compact (16px), default (24px), spacious (32px)
+- State variants: default, hover (border→border/strong, bg→surface-3), selected (border→border/accent, glow/violet applied)
+
+## Component Atoms to Generate
+1. Button variants: Primary (accent/violet fill), Ghost (transparent, border/default), Danger (accent/red), Icon-only (36px, radius/pill)
+   — States: default, hover, active, disabled, loading (spinner inside)
+2. Input field: bg/surface-1, border/default, focus border→border/accent with glow/violet. Prefix icon slot, suffix icon slot, label above, helper text below, error state.
+3. Badge/Pill: 5 color variants matching status colors + violet + cyan. Sizes: sm, md.
+4. Toggle switch: glass track, accent/violet thumb on active.
+5. Avatar: circle, sizes 24/32/40/56px, fallback initials, status dot (online/offline/processing).
+6. Skeleton loader: animated shimmer from bg/surface-1 → bg/surface-2, same shape as the element it replaces.
+7. Tag chip: bg/surface-2, border/subtle, body-sm, dismissible (×) variant, clickable variant.
+8. Progress bar: track bg/surface-1, fill accent/violet, radius/pill, label above-right optional.
+9. Tooltip: bg/surface-3, text/primary, shadow/card, radius/md, max-width 200px, arrow pointer.
+10. Dropdown menu: bg/surface-3, shadow/card, border/default, radius/lg, items with icon slot, hover state bg/surface-2, divider border/subtle.
+
+## Grid & Layout
+Desktop: 12-column grid, 1440px max-width, 24px gutter, 40px margin.
+Sidebar collapsed: 64px width. Sidebar expanded: 240px width.
+Content area: fluid, min 320px.
+
+## Iconography
+Use Lucide icons (24px default, 20px compact, 16px inline). Stroke weight: 1.5px. Color: inherit from parent text token.
+
+Output: One Figma page named "01 Foundations" with all tokens, atoms, and the glass card base component laid out in clearly labeled sections.
+
+Using the MediaVault design system from "01 Foundations", create a login screen. Frame size: 1440×900. Frame name: "Auth / Login".
+
+## Layout
+Full-bleed background using bg/base with the violet radial gradient top-left and cyan radial gradient bottom-right as described in the design system.
+
+Floating decorative elements in background (z=0, very low opacity ~8%): 3 blurred media thumbnail cards at random angles (video, audio, document). These are visual noise only — no interactive state.
+
+Center the auth card horizontally and vertically. Card specs:
+- Width: 420px
+- Use glass card component, variant: default, padding: spacious
+- Add a frosted top edge glow: 1px line rgba(255,255,255,0.20) at top of card
+
+## Card Contents (top to bottom)
+1. Logo: "MV" in a 40px glass pill badge (accent/violet fill), followed by "MediaVault" in type/h2 color text/primary. Centered.
+2. Vertical space: 32px
+3. "Welcome back" — type/h1 centered
+4. "Sign in to your workspace" — type/body color text/secondary centered
+5. Vertical space: 24px
+6. Input: label "Email address", type email, placeholder "you@company.com" — use input component from foundations
+7. Vertical space: 16px
+8. Input: label "Password", type password (eye toggle in suffix), placeholder "••••••••"
+9. Vertical space: 12px
+10. Row: "Remember this device" toggle (left) + "Forgot password?" link text (right, accent/cyan, type/body-sm)
+11. Vertical space: 24px
+12. Primary button full-width: "Sign in" — accent/violet, height 48px, radius/md
+13. Vertical space: 16px
+14. Divider row: line — "or continue with" — line, text/muted
+15. Vertical space: 16px
+16. Two buttons side by side: "Google" and "Microsoft" — both ghost variant, 50% width each, with brand icon left
+17. Vertical space: 24px
+18. Center text type/body-sm text/secondary: "Don't have an account? " + "Request access" link in accent/cyan
+
+## States to Show on the Same Frame
+Lay out 3 card variants side by side (for documentation):
+- Default (empty)
+- Error state: email field in error state, "Invalid email or password" error message below password field in status/error
+- Loading state: Sign in button showing loading spinner, inputs disabled
+
+Frame name this section: "Auth / Login / States"
+
+Using the MediaVault design system, create the Home / Discovery page. Frame: 1440×1024, name "Home / Discovery".
+
+## Shell (global — reuse on all pages)
+Left sidebar (collapsed, 64px wide):
+- Top: MV logo badge (40px, glass pill, accent/violet)
+- Navigation icons (Lucide, 24px, text/secondary, active state: accent/violet with glow/violet bg behind icon radius/md):
+  Icon-only list: Home, Search, Dashboard (chart), Media library (grid), Watchlist (bookmark), Upload (upload-cloud), Collections (folder), Settings (settings). 
+- Bottom: Avatar (32px) + notification bell icon
+
+Top bar (full width, 64px height, bg/surface-1, border-bottom border/subtle):
+- Left: hamburger/pin icon to expand sidebar
+- Center: Search bar — 560px wide, height 44px, bg/surface-2, border/default, radius/pill, placeholder "Search videos, audio, documents… (⌘K)", prefix search icon (text/muted), suffix: filter icon button (ghost, 32px)
+- Right: language switcher pill (flag + "EN"), notification bell with badge, avatar (40px)
+
+Horizontal pill tab navbar (below top bar, 56px height, bg/surface-1, border-bottom border/subtle, left-padded to content start):
+Tabs: "Recent | Starred | Shared With Me | Collections | Smart Playlists"
+Active tab: accent/violet underline 2px, text/primary. Inactive: text/secondary.
+
+## Content Area
+
+Row 1 — Analytics Cards (horizontal scroll row, cards 220px wide, gap 16px, no wrap):
+7 cards using glass card component compact padding:
+1. Videos: Lucide "video" icon (accent/violet), count "1,284", label "Total Videos", sub "↑ 12 this week" (status/success)
+2. Audio: Lucide "mic" icon (accent/cyan), count "347", label "Total Audio"
+3. Documents: Lucide "file-text" icon (accent/amber), count "892", label "Documents"
+4. Storage: Lucide "database" icon (text/secondary), "2.4 TB", label "Storage Used", mini progress bar below (violet=video, cyan=audio, amber=docs) 
+5. Topics: Lucide "tag" icon (accent/violet), "38", label "Unique Topics"
+6. Languages: Lucide "globe" icon (accent/cyan), "12", label "Languages Detected"
+7. People: Lucide "users" icon (accent/amber), "164", label "People Detected"
+
+Row 2 — "Continue Watching" section:
+Section header: "Continue Watching" type/h3, text/primary + "See all" link type/body-sm accent/cyan right-aligned.
+Horizontal card row, 4 cards, each 300px wide:
+Each card: thumbnail (16:9 aspect ratio, rounded top radius/lg, dark placeholder with play icon), bottom padding 12px with: title type/h4 text/primary, type badge pill (video/audio/doc), progress bar below title, "Resume at 14:32" type/body-sm text/muted.
+
+Row 3 — "AI Spotlight" section:
+Section header: "AI Spotlight" with a small accent/violet sparkle icon + tooltip "AI-curated based on your activity"
+1 large featured card (full width, 180px tall, horizontal layout): thumbnail left 320px, right side: topic chip, title type/h2, summary excerpt type/body text/secondary, key moments chips row (3 clickable amber chips), "Watch now" button primary small.
+
+Row 4 — "Browse by Topic":
+Section header "Browse by Topic"
+Horizontal chip scroll row: 8 topic chips, each with icon + label, glass card surface-2, hover: border/accent. Examples: "Product Demos", "Interviews", "Legal", "Finance", "Engineering", "HR", "Marketing", "Research"
+
+Row 5 — "Recently Added":
+Section header "Recently Added" + "View all" link
+3-column grid, 4 rows visible (show only 1 row), cards same as media library cards.
+
+
+Using the MediaVault design system, create the Dashboard / Analytics page. Frame: 1440×1080, name "Dashboard / Analytics". Use the same shell (sidebar + topbar) as Home.
+
+## Page Header
+Title: "Dashboard" type/display. Sub: "Last 30 days · Updated 2 min ago" type/body text/secondary.
+Right side: Date range picker (ghost button "Jun 1 – Jun 27" with calendar icon) + "Export Report" ghost button with download icon.
+
+## Widget Grid (12-column, 24px gutter)
+
+Row 1 — 4 KPI cards (3 cols each), glass card compact:
+1. Total Uploads: "2,523" type/display accent/violet, delta "+18% vs last month" status/success
+2. Processing Queue: "7 items" type/display, status indicator dot (accent/violet pulsing), sub "Avg. 4min each"
+3. Storage Used: "2.4 TB / 5 TB", mini radial progress (48% violet fill), sub breakdown "Video 62% · Audio 8% · Docs 30%"
+4. AI Summaries Generated: "2,104" type/display accent/cyan, sub "96.2% confidence avg"
+
+Row 2 — Upload Velocity Chart (8 cols) + Language Distribution (4 cols):
+Upload velocity: Line chart, x-axis dates (30 days), y-axis upload count, violet line with cyan dot at peak, area fill rgba(124,92,252,0.10). Chart inside glass card default padding.
+Language distribution: Horizontal bar chart, top 6 languages, violet fill, percentage labels right-aligned.
+
+Row 3 — Keyword Heatmap (6 cols) + Top People (3 cols) + Top Objects (3 cols):
+Keyword heatmap: Grid of ~24 word tags, opacity/size scaled by frequency. Use type/body-sm to type/h3 scale, color range text/muted → accent/violet. Title "Trending Keywords"
+Top People: Ranked list, rank number + avatar (40px, initials fallback) + name + appearance count + bar fill accent/violet. Max 6 items.
+Top Objects: Same layout, swap avatar for Lucide object icon (amber), e.g. Laptop, Whiteboard, Car, Person, Screen.
+
+Row 4 — Sentiment Distribution (4 cols) + Top Topics (4 cols) + Clip Generation (4 cols):
+Sentiment: Donut chart. Positive=status/success, Neutral=text/muted, Negative=status/error. Center label "Avg Sentiment". Legend below.
+Top Topics: Vertical bar chart, 6 topic bars, amber fill, x-axis topic labels truncated with tooltip.
+Clip Generation: Stat card with number "342 clips", sub-stats: "Shared 128", "Downloaded 87", "In-progress 12". Sparkline 30d trend below.
+
+Row 5 — Processing Status Table (12 cols):
+Full-width glass card. Title "Recent Processing Jobs"
+Table: File name (with type icon) | Type | Duration/Pages | Status pill (queued/processing/ready/failed) | Started | Completed | Actions (eye icon, download icon)
+Show 5 rows, "View all jobs →" link at bottom right.
+Skeleton loader variant of this table shown to the right for documentation.
+
+
+Using the MediaVault design system, create the Media Library page. Frame: 1440×1024, name "Media / Library". Same shell.
+
+## Page Header
+Tabs: "All | Videos | Audio | Documents" — pill tabs variant (not underline), active: bg/surface-3 border/accent text/primary.
+Right side: "Grid view" / "List view" toggle (icon buttons, ghost, active bg/surface-2) + Sort dropdown "Date Added ↓" + "Bulk Select" ghost button.
+
+## Filter Panel (Left, 240px, collapsible)
+Glass card full height, padding default. Title "Filters" + "Clear all" link accent/cyan.
+Sections with dividers:
+- Media Type: checkbox group (Video, Audio, Document)
+- Date Range: two date inputs (from/to)
+- Duration: range slider (0min – 3hr+)
+- Language: multi-select dropdown with flags
+- Status: checkbox group (Ready, Processing, Queued, Failed) with status color dots
+- Topics: expandable tag list with checkboxes (show 5, "+ 12 more" toggle)
+- People Detected: expandable list with avatars
+- Has: toggle switches row (Transcript, Summary, Keywords, Notes)
+- File Size: range slider
+
+## Content Area (right of filter panel)
+Results count: "Showing 284 items" type/body text/secondary + active filter chips row (dismissible, amber chips).
+
+Grid view (4 columns, gap 20px):
+Media card component (define this as a reusable component):
+- Thumbnail area (16:9, radius/lg top): 
+  - Video: thumbnail with duration badge (bottom-right, bg/overlay, type/mono white)
+  - Audio: waveform visualization placeholder (dark bg, cyan waveform graphic)
+  - Document: first-page preview (dark bg)
+  - Top-left: type badge pill (tiny: "MP4", "PDF", "MP3")
+  - Hover state: silent preview effect (dim overlay with play icon, scale 1.02)
+  - Top-right: bookmark icon (ghost, appears on hover), filled if favourited
+- Card body (bg/surface-2, padding 12px, radius/lg bottom):
+  - Title: type/h4 text/primary, 2 lines max, ellipsis
+  - Row: language badge + topic chip (1 visible, "+3" chip if more)
+  - Row: file size type/body-sm text/muted + upload date type/body-sm text/muted right-aligned
+  - Status pill bottom if not "ready": shows processing/queued/failed
+  - Bottom: 3 action icons on hover: Play/Open, Add to watchlist, More (⋯)
+
+Show this card in 4 states below the grid (documentation row):
+- Default, Hover, Selected (border/accent + checkbox top-left checked), Processing (violet pulsing status pill)
+
+Bulk action bar (floats at bottom when items selected, centered, glass card surface-3, shadow/card):
+"3 items selected" · Download · Add to Collection · Add to Watchlist · Delete — all ghost buttons, Delete in accent/red · × dismiss
+
+
+Using the MediaVault design system, create the Video Viewer page. Frame: 1440×900, name "Media / Viewer / Video". Same shell (sidebar collapsed).
+
+## Two-Column Layout
+Left column: 65% width (916px). Right column: 35% (492px). Full height. No gap between columns, right column has left border border/subtle.
+
+## LEFT COLUMN — Video Player
+
+Top breadcrumb: "Media Library / Product Demo Q2 2026" type/body-sm text/muted. Lucide chevron separators.
+
+Video container: 16:9 aspect ratio, bg #000, radius/lg, shadow/card. Placeholder thumbnail with large play button (64px, glass circle, white icon).
+
+Custom player controls bar (below video, full width, 56px, bg/surface-1 radius/lg):
+- Progress bar: full width, 6px tall, track bg/surface-1, fill gradient violet→cyan, thumb 14px circle white with glow/violet on hover. Chapter markers: small white triangles above bar at key moments.
+- Waveform mini (subtle, below progress bar, 24px tall, cyan rgba 0.3 fill)
+- Controls row: ⏮ prev-chapter | ⏪ -10s | ⏵ play/pause | ⏩ +10s | ⏭ next-chapter · timestamp "14:32 / 1:02:18" type/mono text/secondary · Volume slider · Speed selector "1x" pill · CC toggle · Language selector (globe icon + "EN" pill) · Clip tool (scissors icon, accent/amber) · PiP icon · Fullscreen icon
+
+Clip tool expanded state (show as overlay on frame — documentation): 
+Draggable range on timeline, "Clip: 14:22 – 18:05 (3:43)" label, name input field, format selector (MP4, GIF, WebM), "Generate Clip" button primary, cancel ghost button.
+
+Below player: Related content row (3 horizontal mini-cards, same style as continue watching cards).
+
+## RIGHT COLUMN — Intelligence Panel
+
+Tab bar (10 tabs, scroll if overflow, active tab: accent/violet underline + text/primary):
+Transcript | Summary | Keywords | Key Moments | People | Objects | Events | Notes | Chapters | Related
+
+Show "Transcript" tab active:
+
+Transcript tab content:
+- Search bar at top (full width minus padding, compact, "Search transcript…")
+- Scrollable list of transcript entries. Each entry: timestamp pill (type/mono accent/cyan clickable → seeks video, bg/surface-1) + text content type/body text/primary. Highlight current playing word (text/primary bg accent/violet-glow border-left 2px accent/violet). Show 8 entries.
+- "Auto-scroll" toggle bottom right.
+
+Show Summary tab (second state, lay beside frame for docs):
+- AI confidence score bar (top, "96% confidence", violet fill 96%)
+- "Regenerate" button (ghost, small, right-aligned, with Lucide refresh icon)
+- Summary text: 4 paragraphs, type/body text/primary, line-height 1.7
+- "Copy" ghost button, "Export .txt" ghost button row below.
+
+Show Keywords tab (third state):
+- Tag cloud: ~20 tags, size/opacity frequency-scaled, accent/violet → text/primary range
+- List below: keyword + count + first occurrence timestamp + "Find in Transcript" link
+
+Show Notes tab (fourth state):
+- Rich text toolbar: Bold, Italic, Underline, H1, H2, Bullet list, Insert timestamp (clock icon, inserts current video time as clickable link)
+- Editor area: bg/surface-1, border/default, radius/md, min-height 300px
+- "Export as PDF" and "Export as Markdown" ghost buttons below.
+
+## Bottom Bar (full width, 48px, bg/surface-1, border-top border/subtle)
+Left: "Download" button (ghost, download icon) dropdown — Original File, Transcript (.srt), Transcript (.txt), Summary (.md), Full Export (.zip)
+Center: "Share" button (ghost, share icon) 
+Right: "Report AI Error" text link type/body-sm text/muted
+
+
+Using the MediaVault design system, create the Upload page. Frame: 1440×900, name "Upload / Main". Same shell.
+
+## Page Header
+Title: "Upload Media" type/h1. Sub: "Files are processed automatically after upload." type/body text/secondary.
+Right: "View Upload Queue" ghost button with badge showing "3 active".
+
+## Three-Column Layout (equal width, 24px gutter)
+
+Each column is a glass card (padding spacious) with a colored top accent strip (3px, full width, rounded top):
+- Video: accent/violet
+- Audio: accent/cyan
+- Document: accent/amber
+
+Column structure (same for all three, swap icons/copy/accent):
+
+Column 1 — Video:
+- Header: Lucide "video" icon 32px accent/violet + "Video" type/h3
+- Accepted formats: "MP4, MOV, AVI, MKV, WebM · Max 10GB" type/body-sm text/muted
+- Drop zone: dashed border 2px border/accent (violet), radius/lg, height 200px, center content:
+  - Upload cloud icon 48px text/muted
+  - "Drag & drop videos here" type/h4 text/secondary
+  - "or" type/body-sm text/muted
+  - "Browse files" button primary small
+  - Hover state: bg/surface-3, border solid border/accent, glow/violet
+- Metadata form (below drop zone):
+  - Input: Title
+  - Textarea: Description (3 rows)
+  - Select: Language (flag + name)
+  - Tag input: Topics/Tags (add tag, chip row)
+  - Row of AI module toggles (small, with tooltip): Transcription ✓ | Summary ✓ | Keywords ✓ | Object Detection ✓ | Face Detection (info icon: "Requires consent") ✓ | Events ✓
+  - Visibility: Radio pills — "Private · Team · Public"
+
+Show Column 1 in two states side by side (documentation): empty state + file queued state (file card in drop zone area showing filename, size, progress bar, cancel × button)
+
+URL Ingestion row (below all 3 columns, full width, glass card compact):
+Lucide "link" icon + "Import from URL" type/h4 · Input field placeholder "https://youtube.com/watch?v=... or Zoom recording link" · "Import" button primary · Supported: YouTube, Vimeo, Zoom, Google Drive, Dropbox, OneDrive — shown as small brand icon pills.
+
+Upload Queue float (bottom-right, 320px wide, glass card surface-3, shadow/card — show as persistent overlay):
+Title: "Upload Queue" type/h4 + collapse chevron
+3 items: file icon, name, type badge, progress bar (violet), "processing" pulse pill OR "complete" success pill OR "failed" retry button.
+
+
+Using the MediaVault design system, create the Settings page. Frame: 1440×900, name "Settings / Profile". Same shell.
+
+## Two-Column Layout
+Left: 240px settings nav panel (glass card full height, bg/surface-1).
+Right: content area (fluid, padding 40px).
+
+Settings nav items (Lucide icon + label, active: bg/surface-2 border-left 3px accent/violet text/primary, inactive: text/secondary):
+- Profile
+- Appearance
+- Notifications
+- AI Preferences
+- Storage
+- API Access
+- Team & Sharing
+- Integrations
+- Billing
+- Data & Privacy
+
+Active: "Appearance" — show this in the content pane.
+
+## Appearance Settings Pane
+Title: "Appearance" type/h2. Sub: "Customize how MediaVault looks for you." type/body text/secondary.
+
+Section: Theme
+Label "Color Theme" type/h4 + body description
+Three radio cards (horizontal row, 180px each):
+- Dark (selected: border/accent glow/violet) — thumbnail showing dark bg sample
+- Light — light bg sample
+- System Auto — half-half sample
+Each card: thumbnail top, label centered below, radio circle bottom-right.
+
+Section: Accent Color
+Label "Accent Color" + description
+6 color swatches (32px circles): violet (default, checkmark), cyan, amber, rose, emerald, orange. Selected has ring border/accent 2px offset.
+
+Section: Glass Intensity
+Label "Glass Intensity" + "Controls backdrop blur and transparency strength" sub
+Labeled range slider: Low — Medium — High (notched). Current value shown as pill above thumb "Medium".
+Live preview card to the right: small glass card that updates in description (annotate that this is interactive).
+
+Section: Font Size
+Label "Interface Font Size"
+Segmented control: Small | Medium (active) | Large | X-Large
+
+Section: Reduce Motion
+Toggle row: "Reduce Motion" label + sub "Disables animated backgrounds and transitions" — toggle right.
+
+Section: Sidebar Default
+Toggle row: "Keep sidebar expanded by default" — toggle right.
+
+Save button: Primary "Save Preferences", ghost "Reset to Defaults" beside it. Right-aligned.
+
+Also show "Profile" pane layout to the right (documentation):
+Avatar upload area (large circle, dashed border, "Click to change" overlay), Name input, Email (read-only badge "verified"), Timezone select, Language select, Password change section (current + new + confirm), "Save Profile" primary button.
+
+
+Using the MediaVault design system, create the Persistent Mini Player component. Frame name: "Components / Mini Player".
+
+This floats bottom-right of every page when media is playing and user navigates away.
+
+Specs:
+- Width: 320px, Height: 72px
+- bg/surface-3, border border/default, radius/xl, shadow/card
+- Left: thumbnail (72×72px, square, radius/lg left only) with small type badge (bottom-left)
+- Center: title type/h4 text/primary 1 line truncated, "14:32 / 1:02:18" type/mono text/muted below. Mini progress bar full-width below those (4px tall, violet fill)
+- Right: ⏮ | ⏵/⏸ | ⏭ | × — all icon buttons 32px ghost
+- Hover state: border/accent, slight scale 1.01
+- Drag handle annotation (top-center, 24px line, border/subtle): "Draggable"
+
+Show 3 states: Playing, Paused, Loading (skeleton).
