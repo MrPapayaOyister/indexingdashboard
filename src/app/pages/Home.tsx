@@ -44,11 +44,8 @@ export function Home() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const removeChip = (idx: number) => setChips((c) => c.filter((_, i) => i !== idx));
-
   const handleMic = () => setIsListening((v) => !v);
-
   const handleAttach = () => fileRef.current?.click();
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) setAttachedFile(file.name);
@@ -58,53 +55,59 @@ export function Home() {
   return (
     <div
       className="flex flex-col h-full items-center overflow-hidden"
-      style={{ backgroundColor: "#1A1A1A" }}
+      style={{ backgroundColor: "var(--color-bg-base)" }}
     >
       {/* Upper half — vertically centered search area */}
       <div className="flex-1 flex flex-col items-center justify-center w-full px-6">
         {/* Label */}
         <p
-          className="text-[#888] mb-4 tracking-[0.2em] uppercase"
-          style={{ fontSize: "11px" }}
+          className="mb-4 tracking-[0.2em] uppercase"
+          style={{ fontSize: "11px", color: "var(--color-brand)", opacity: 0.7 }}
         >
           MEDIAVAULT
         </p>
 
-        {/* Search bar — frosted glass, 640px, 56px tall */}
+        {/* Search bar */}
         <div className="w-full max-w-[640px] relative">
           <div
             className={cn(
-              "w-full h-14 rounded-[14px] flex items-center gap-2 px-4 transition-all",
-              isListening && "shadow-[0_0_0_2px_rgba(255,255,255,0.5)]"
+              "w-full h-14 rounded-[14px] flex items-center gap-2 px-4 transition-all"
             )}
             style={{
-              backgroundColor: "rgba(255,255,255,0.05)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
+              backgroundColor: "var(--color-bg-card)",
+              backdropFilter: "var(--backdrop)",
+              WebkitBackdropFilter: "var(--backdrop)",
               border: isListening
-                ? "1px solid rgba(255,255,255,0.5)"
-                : "1px solid rgba(255,255,255,0.08)",
-              boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
+                ? "1px solid var(--color-brand)"
+                : "1px solid var(--color-border-glass)",
+              boxShadow: isListening
+                ? "var(--shadow-brand-glow)"
+                : "0 4px 24px rgba(0,0,0,0.5)",
             }}
           >
-            <Search className="w-5 h-5 text-[#555] shrink-0" strokeWidth={1.5} />
+            <Search
+              className="w-5 h-5 shrink-0"
+              strokeWidth={1.5}
+              style={{ color: "var(--color-text-dim)" }}
+            />
 
             {/* Attached file chip */}
             {attachedFile && (
               <div
                 className="flex items-center gap-1.5 px-2 py-1 rounded-full shrink-0"
                 style={{
-                  backgroundColor: "rgba(255,255,255,0.08)",
-                  border: "1px solid rgba(255,255,255,0.12)",
+                  backgroundColor: "var(--color-brand-glow-sm)",
+                  border: "1px solid var(--color-border-glass)",
                   fontSize: "12px",
-                  color: "#ccc",
+                  color: "var(--color-text-muted)",
                 }}
               >
                 <Paperclip className="w-3 h-3" strokeWidth={1.5} />
                 <span className="max-w-[120px] truncate">{attachedFile}</span>
                 <button
                   onClick={() => setAttachedFile(null)}
-                  className="text-[#888] hover:text-white ml-0.5"
+                  style={{ color: "var(--color-text-dim)" }}
+                  className="hover:text-white ml-0.5"
                 >
                   <X className="w-3 h-3" />
                 </button>
@@ -122,7 +125,10 @@ export function Home() {
                   ? "Ask about this file…"
                   : "Ask anything about your media…"
               }
-              className="flex-1 bg-transparent outline-none text-white placeholder:text-[#555] text-sm min-w-0"
+              className="flex-1 bg-transparent outline-none text-sm min-w-0"
+              style={{
+                color: "var(--color-text-primary)",
+              }}
             />
 
             {/* Waveform when listening */}
@@ -131,9 +137,10 @@ export function Home() {
                 {[3, 5, 8, 5, 3, 7, 4, 6, 3, 5].map((h, i) => (
                   <div
                     key={i}
-                    className="w-0.5 rounded-full bg-white/60 animate-pulse"
+                    className="w-0.5 rounded-full animate-pulse"
                     style={{
                       height: `${h * 2}px`,
+                      backgroundColor: "var(--color-brand)",
                       animationDelay: `${i * 80}ms`,
                     }}
                   />
@@ -146,19 +153,25 @@ export function Home() {
               <button
                 onClick={handleMic}
                 className={cn(
-                  "p-1.5 rounded-md transition-colors",
-                  isListening ? "text-white" : "text-[#555] hover:text-white"
+                  "p-1.5 rounded-md transition-colors"
                 )}
+                style={{
+                  color: isListening ? "var(--color-brand)" : "var(--color-text-dim)",
+                }}
               >
                 <Mic className="w-4 h-4" strokeWidth={1.5} />
               </button>
               <button
                 onClick={handleAttach}
-                className="p-1.5 rounded-md text-[#555] hover:text-white transition-colors"
+                className="p-1.5 rounded-md transition-colors"
+                style={{ color: "var(--color-text-dim)" }}
               >
                 <Paperclip className="w-4 h-4" strokeWidth={1.5} />
               </button>
-              <button className="p-1.5 rounded-md text-[#555] hover:text-white transition-colors">
+              <button
+                className="p-1.5 rounded-md transition-colors"
+                style={{ color: "var(--color-text-dim)" }}
+              >
                 <SlidersHorizontal className="w-4 h-4" strokeWidth={1.5} />
               </button>
             </div>
@@ -178,13 +191,13 @@ export function Home() {
             {chips.map((chip, idx) => (
               <div
                 key={idx}
-                className="flex items-center gap-1.5 px-3 py-1 rounded-full cursor-pointer transition-colors hover:border-white/20"
+                className="flex items-center gap-1.5 px-3 py-1 rounded-full cursor-pointer transition-colors"
                 style={{
-                  backgroundColor: "rgba(255,255,255,0.04)",
+                  backgroundColor: "var(--color-bg-card)",
                   backdropFilter: "blur(12px)",
-                  border: "1px solid rgba(255,255,255,0.08)",
+                  border: "1px solid var(--color-border-glass)",
                   fontSize: "12px",
-                  color: "#888",
+                  color: "var(--color-text-muted)",
                 }}
                 onClick={() => setQuery(chip)}
               >
@@ -194,7 +207,8 @@ export function Home() {
                     e.stopPropagation();
                     removeChip(idx);
                   }}
-                  className="text-[#555] hover:text-white transition-colors ml-0.5"
+                  className="transition-colors ml-0.5 hover:text-white"
+                  style={{ color: "var(--color-text-dim)" }}
                 >
                   <X className="w-3 h-3" />
                 </button>
@@ -204,7 +218,7 @@ export function Home() {
         )}
 
         {/* Hint */}
-        <p className="mt-3 text-[#333]" style={{ fontSize: "11px" }}>
+        <p className="mt-3" style={{ fontSize: "11px", color: "var(--color-text-dim)" }}>
           ⌘K from anywhere
         </p>
       </div>
@@ -226,8 +240,8 @@ export function Home() {
 
         <button
           onClick={() => navigate("/dashboard")}
-          className="mt-4 text-[#555] hover:text-white transition-colors"
-          style={{ fontSize: "12px" }}
+          className="mt-4 transition-colors hover:text-white"
+          style={{ fontSize: "12px", color: "var(--color-text-dim)" }}
         >
           Dashboard →
         </button>
@@ -254,23 +268,32 @@ function StatCard({
       onClick={onClick}
       className="w-[220px] rounded-xl p-5 text-left transition-all active:scale-[0.98] hover:brightness-110 flex flex-col relative overflow-hidden"
       style={{
-        backgroundColor: "#1A1A1A",
-        boxShadow:
-          "6px 6px 16px rgba(0,0,0,0.55), -4px -4px 10px rgba(255,255,255,0.03)",
+        boxShadow: "var(--shadow-card)",
+        background: "var(--color-bg-card)",
+        border: "1px solid var(--color-border-glass)",
+        backdropFilter: "var(--backdrop)",
+        WebkitBackdropFilter: "var(--backdrop)",
       }}
     >
       <div className="flex items-center gap-2 mb-1">
         <span
-          className="text-white"
-          style={{ fontSize: "28px", fontWeight: 600, lineHeight: 1.1 }}
+          style={{
+            fontSize: "28px",
+            fontWeight: 600,
+            lineHeight: 1.1,
+            color: "var(--color-text-primary)",
+          }}
         >
           {value}
         </span>
         {pulse && (
-          <span className="w-2 h-2 rounded-full bg-white animate-pulse shrink-0" />
+          <span
+            className="w-2 h-2 rounded-full animate-pulse shrink-0"
+            style={{ backgroundColor: "var(--color-accent-warn)" }}
+          />
         )}
       </div>
-      <span className="text-[#888]" style={{ fontSize: "13px" }}>
+      <span style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>
         {label}
       </span>
 
@@ -278,11 +301,11 @@ function StatCard({
       {typeof progress === "number" && (
         <div
           className="absolute bottom-0 left-0 right-0 h-[3px] rounded-b-xl"
-          style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+          style={{ backgroundColor: "rgba(255,255,255,0.06)" }}
         >
           <div
-            className="h-full rounded-b-xl bg-white"
-            style={{ width: `${progress}%` }}
+            className="h-full rounded-b-xl"
+            style={{ width: `${progress}%`, backgroundColor: "var(--color-brand)" }}
           />
         </div>
       )}

@@ -24,13 +24,16 @@ function Toggle({ active, onToggle }: { active: boolean; onToggle: () => void })
       onClick={onToggle}
       className="w-10 h-6 rounded-full p-0.5 transition-colors shrink-0"
       style={{
-        backgroundColor: active ? "#FFFFFF" : "rgba(255,255,255,0.1)",
-        border: "1px solid " + (active ? "#FFFFFF" : "rgba(255,255,255,0.08)"),
+        backgroundColor: active ? "var(--color-brand)" : "rgba(255,255,255,0.1)",
+        border: "1px solid " + (active ? "var(--color-brand)" : "var(--color-border-subtle)"),
       }}
     >
       <div
         className="w-4 h-4 rounded-full transition-transform"
-        style={{ backgroundColor: active ? "#000" : "#555", transform: active ? "translateX(16px)" : "translateX(0)" }}
+        style={{
+          backgroundColor: active ? "#fff" : "var(--color-text-dim)",
+          transform: active ? "translateX(16px)" : "translateX(0)",
+        }}
       />
     </button>
   );
@@ -48,11 +51,10 @@ function NeuInput({ label, type = "text", value, readOnly, placeholder, badge }:
           defaultValue={value}
           readOnly={readOnly}
           placeholder={placeholder}
-          className="w-full rounded-[10px] px-4 py-3 text-sm text-white placeholder:text-[#444] bg-transparent outline-none"
+          className="neu-input w-full rounded-[10px] px-4 py-3 text-sm bg-transparent outline-none"
           style={{
-            backgroundColor: "#161616",
-            boxShadow: "inset 4px 4px 10px rgba(0,0,0,0.5), inset -3px -3px 8px rgba(255,255,255,0.025)",
-            border: "1px solid rgba(255,255,255,0.06)",
+            border: "1px solid var(--color-border-subtle)",
+            color: "var(--color-text-primary)",
             opacity: readOnly ? 0.7 : 1,
           }}
         />
@@ -80,9 +82,13 @@ function SectionTitle({ title, desc }: { title: string; desc: string }) {
 
 function SaveBtn({ label = "Save Changes" }: { label?: string }) {
   return (
-    <div className="flex justify-end pt-6" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+    <div
+      className="flex justify-end pt-6"
+      style={{ borderTop: "1px solid var(--color-border-subtle)" }}
+    >
       <button
-        className="h-11 px-6 rounded-[10px] bg-white text-black font-medium text-sm transition-all active:scale-[0.97] hover:bg-white/90"
+        className="h-11 px-6 rounded-[10px] font-medium text-sm transition-all active:scale-[0.97] hover:brightness-110"
+        style={{ backgroundColor: "var(--color-brand)", color: "#fff" }}
       >
         {label}
       </button>
@@ -289,8 +295,8 @@ function AIPreferencesPane() {
       <div>
         <label className="block text-[#888] uppercase tracking-widest mb-2" style={{ fontSize: "11px" }}>Default Transcript Language</label>
         <select
-          className="w-full rounded-[10px] px-4 py-3 text-sm text-white appearance-none outline-none"
-          style={{ backgroundColor: "#161616", boxShadow: "inset 4px 4px 10px rgba(0,0,0,0.5), inset -3px -3px 8px rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)" }}
+          className="neu-input w-full rounded-[10px] px-4 py-3 text-sm appearance-none outline-none"
+          style={{ border: "1px solid var(--color-border-subtle)", color: "var(--color-text-primary)" }}
         >
           {["Auto-detect", "English", "Spanish", "French", "German"].map((l) => (
             <option key={l} value={l} style={{ backgroundColor: "#1a1a1a" }}>{l}</option>
@@ -306,9 +312,11 @@ function AIPreferencesPane() {
               onClick={() => setSummaryLength(s)}
               className="flex-1 h-10 rounded-[10px] text-sm font-medium transition-all"
               style={{
-                backgroundColor: summaryLength === s ? "#fff" : "transparent",
-                color: summaryLength === s ? "#000" : "#888",
-                border: summaryLength === s ? "1px solid #fff" : "1px solid rgba(255,255,255,0.1)",
+                backgroundColor: summaryLength === s ? "var(--color-brand)" : "transparent",
+                color: summaryLength === s ? "#fff" : "var(--color-text-muted)",
+                border: summaryLength === s
+                  ? "1px solid var(--color-brand)"
+                  : "1px solid var(--color-border-subtle)",
               }}
             >
               {s}
@@ -361,9 +369,9 @@ function StoragePane() {
             boxShadow: "inset 3px 3px 7px rgba(0,0,0,0.4), inset -2px -2px 5px rgba(255,255,255,0.02)",
           }}
         >
-          <div className="h-full bg-white" style={{ width: "30%" }} />
-          <div className="h-full" style={{ width: "4%", backgroundColor: "rgba(255,255,255,0.4)" }} />
-          <div className="h-full" style={{ width: "14%", backgroundColor: "rgba(255,255,255,0.15)" }} />
+          <div className="h-full" style={{ width: "30%", backgroundColor: "var(--color-brand)" }} />
+          <div className="h-full" style={{ width: "4%", backgroundColor: "var(--color-accent-ok)" }} />
+          <div className="h-full" style={{ width: "14%", backgroundColor: "rgba(4,51,191,0.3)" }} />
         </div>
         <div className="flex gap-5 mt-2">
           {segments.map((s) => (
@@ -497,11 +505,15 @@ function TeamPane() {
         <input
           type="email"
           placeholder="colleague@company.com"
-          className="flex-1 rounded-[10px] px-4 py-3 text-sm text-white placeholder:text-[#444] bg-transparent outline-none"
-          style={{ backgroundColor: "#161616", boxShadow: "inset 4px 4px 10px rgba(0,0,0,0.5), inset -3px -3px 8px rgba(255,255,255,0.025)", border: "1px solid rgba(255,255,255,0.06)" }}
+          className="neu-input flex-1 rounded-[10px] px-4 py-3 text-sm bg-transparent outline-none"
+          style={{
+            border: "1px solid var(--color-border-subtle)",
+            color: "var(--color-text-primary)",
+          }}
         />
         <button
-          className="h-11 px-5 rounded-[10px] bg-white text-black font-medium text-sm transition-all active:scale-[0.97] hover:bg-white/90"
+          className="h-11 px-5 rounded-[10px] font-medium text-sm transition-all active:scale-[0.97] hover:brightness-110"
+          style={{ backgroundColor: "var(--color-brand)", color: "#fff" }}
         >
           Send Invite
         </button>
@@ -515,10 +527,9 @@ function PlaceholderPane({ title, desc }: { title: string; desc: string }) {
     <div>
       <SectionTitle title={title} desc={desc} />
       <div
-        className="flex flex-col items-center justify-center rounded-xl py-16"
-        style={{ backgroundColor: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
+        className="glass-card flex flex-col items-center justify-center rounded-xl py-16"
       >
-        <p className="text-[#555] text-sm">Content coming soon</p>
+        <p className="text-sm" style={{ color: "var(--color-text-dim)" }}>Content coming soon</p>
       </div>
     </div>
   );
@@ -541,14 +552,14 @@ export function Settings() {
   };
 
   return (
-    <div className="flex h-full" style={{ backgroundColor: "#1A1A1A" }}>
-      {/* Left nav — neumorphic raised card */}
+    <div className="flex h-full" style={{ backgroundColor: "var(--color-bg-base)" }}>
+      {/* Left nav */}
       <aside
         className="w-[220px] shrink-0 py-6"
         style={{
-          backgroundColor: "#1A1A1A",
+          backgroundColor: "var(--color-bg-surface)",
           boxShadow: "3px 0 12px rgba(0,0,0,0.3)",
-          borderRight: "1px solid rgba(255,255,255,0.05)",
+          borderRight: "1px solid var(--color-border-subtle)",
         }}
       >
         <nav className="flex flex-col gap-0.5 px-3">
@@ -558,11 +569,13 @@ export function Settings() {
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={cn(
-                  "flex items-center gap-3 px-3 h-11 rounded-md text-sm font-medium transition-all text-left",
-                  isActive ? "text-white" : "text-[#555] hover:text-white hover:bg-white/5"
-                )}
-                style={isActive ? { borderLeft: "2px solid #fff", paddingLeft: "10px" } : {}}
+                className="flex items-center gap-3 px-3 h-11 rounded-md text-sm font-medium transition-all text-left"
+                style={{
+                  color: isActive ? "var(--color-brand)" : "var(--color-text-dim)",
+                  backgroundColor: isActive ? "var(--color-brand-glow-sm)" : "transparent",
+                  borderLeft: isActive ? "2px solid var(--color-brand)" : "2px solid transparent",
+                  paddingLeft: isActive ? "10px" : undefined,
+                }}
               >
                 <item.icon className="w-4 h-4 shrink-0" strokeWidth={1.5} />
                 {item.label}
