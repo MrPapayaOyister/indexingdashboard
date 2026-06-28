@@ -3,48 +3,90 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-base: #1A1A1A;
-  --color-surface-1: rgba(255, 255, 255, 0.03);
-  --color-surface-2: rgba(255, 255, 255, 0.06);
-  --color-surface-3: rgba(255, 255, 255, 0.1);
-  --color-overlay: rgba(10, 10, 10, 0.85);
+  /* ── Base backgrounds ── */
+  --color-bg-base:         #0D0F14;
+  --color-bg-surface:      #14171F;
+  --color-bg-card:         rgba(20, 24, 35, 0.72);
+  --color-bg-card-hover:   rgba(28, 34, 50, 0.88);
 
-  --color-primary: #FFFFFF;
-  --color-secondary: #888888;
-  --color-muted: #444444;
-  --color-inverse: #000000;
+  /* ── Brand ── */
+  --color-brand:           #0433BF;
+  --color-brand-mid:       #0536D4;
+  --color-brand-glow:      rgba(4, 51, 191, 0.25);
+  --color-brand-glow-sm:   rgba(4, 51, 191, 0.12);
 
-  --color-border-subtle: rgba(255, 255, 255, 0.04);
-  --color-border-default: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.18);
-  --color-border-accent: rgba(255, 255, 255, 0.3);
+  /* ── Borders ── */
+  --color-border-glass:    rgba(4, 51, 191, 0.18);
+  --color-border-subtle:   rgba(255, 255, 255, 0.06);
 
+  /* ── Text ── */
+  --color-text-primary:    #E8ECF4;
+  --color-text-muted:      #6B7A99;
+  --color-text-dim:        #3A4259;
+
+  /* ── Semantic accents ── */
+  --color-accent-ok:       #00D4A0;
+  --color-accent-warn:     #F5A623;
+  --color-accent-err:      #FF4D6A;
+
+  /* ── Legacy aliases (kept for gradual migration) ── */
+  --color-base:            #0D0F14;
+  --color-surface-1:       rgba(20, 24, 35, 0.72);
+  --color-surface-2:       rgba(28, 34, 50, 0.88);
+  --color-surface-3:       rgba(255, 255, 255, 0.1);
+  --color-overlay:         rgba(10, 10, 10, 0.85);
+
+  --color-primary:         #E8ECF4;
+  --color-secondary:       #6B7A99;
+  --color-muted:           #3A4259;
+  --color-inverse:         #000000;
+
+  --color-border-default:  rgba(4, 51, 191, 0.18);
+  --color-border-strong:   rgba(255, 255, 255, 0.18);
+  --color-border-accent:   rgba(4, 51, 191, 0.4);
+
+  /* ── Fonts ── */
   --font-sans: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 
-  /* Glassmorphism */
-  --shadow-glass: 0 4px 24px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.7);
+  /* ── Shadows ── */
+  --shadow-glass:
+    0 4px 24px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-card:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(4, 51, 191, 0.18);
+  --shadow-brand-glow:
+    0 0 24px rgba(4, 51, 191, 0.25),
+    0 0 0 1px rgba(4, 51, 191, 0.18);
+  --shadow-neu:
+    inset 2px 2px 5px rgba(255, 255, 255, 0.035),
+    inset -2px -2px 5px rgba(0, 0, 0, 0.45),
+    4px 4px 14px rgba(0, 0, 0, 0.55);
 
-  /* Neumorphism raised — sits above the #1A1A1A surface */
+  /* ── Legacy neu shadows ── */
   --shadow-neu-raised: 6px 6px 16px rgba(0, 0, 0, 0.55), -4px -4px 10px rgba(255, 255, 255, 0.03);
-  /* Neumorphism inset — pushed into the surface */
-  --shadow-neu-inset: inset 4px 4px 10px rgba(0, 0, 0, 0.5), inset -3px -3px 8px rgba(255, 255, 255, 0.025);
+  --shadow-neu-inset:  inset 4px 4px 10px rgba(0, 0, 0, 0.5), inset -3px -3px 8px rgba(255, 255, 255, 0.025);
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  /* ── Radii ── */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   16px;
+  --radius-xl:   24px;
   --radius-pill: 9999px;
+  --radius-card: 16px;
 
-  /* Semantic aliases (all greyscale / white) */
-  --color-violet: #FFFFFF;
-  --color-cyan: #888888;
-  --color-amber: #555555;
-  --color-success: #FFFFFF;
-  --color-warning: #888888;
-  --color-error: #555555;
-  --color-processing: #FFFFFF;
+  /* ── Backdrop ── */
+  --backdrop: blur(14px) saturate(160%);
+
+  /* ── Semantic colour aliases ── */
+  --color-violet:     #0433BF;
+  --color-cyan:       #00D4A0;
+  --color-amber:      #F5A623;
+  --color-success:    #00D4A0;
+  --color-warning:    #F5A623;
+  --color-error:      #FF4D6A;
+  --color-processing: #F5A623;
 }
 
 @layer base {
@@ -53,8 +95,8 @@
   }
 
   body {
-    background-color: var(--color-base);
-    color: var(--color-primary);
+    background-color: var(--color-bg-base);
+    color: var(--color-text-primary);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
@@ -67,5 +109,31 @@
   * {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+}
+
+/* ── Utility Classes ── */
+@layer utilities {
+  .glass-card {
+    background: var(--color-bg-card);
+    backdrop-filter: var(--backdrop);
+    -webkit-backdrop-filter: var(--backdrop);
+    border: 1px solid var(--color-border-glass);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    will-change: transform;
+  }
+
+  .neu-input {
+    background: var(--color-bg-base);
+    box-shadow: var(--shadow-neu);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--color-text-primary);
+  }
+
+  .brand-glow-ring {
+    box-shadow: var(--shadow-brand-glow);
+    border-color: rgba(4, 51, 191, 0.4);
   }
 }

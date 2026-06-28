@@ -39,11 +39,14 @@ export function MediaLibrary() {
   });
 
   return (
-    <div className="flex flex-col h-full relative" style={{ backgroundColor: "#1A1A1A" }}>
+    <div
+      className="flex flex-col h-full relative"
+      style={{ backgroundColor: "var(--color-bg-base)" }}
+    >
       {/* Inline page header */}
       <div
         className="flex items-center justify-between px-6 h-14 shrink-0"
-        style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+        style={{ borderBottom: "1px solid var(--color-border-subtle)" }}
       >
         {/* Tab row */}
         <div className="flex gap-1">
@@ -53,8 +56,10 @@ export function MediaLibrary() {
               onClick={() => setActiveTab(tab)}
               className="px-4 py-1.5 text-sm font-medium transition-all"
               style={{
-                color: activeTab === tab ? "#fff" : "#555",
-                borderBottom: activeTab === tab ? "2px solid #fff" : "2px solid transparent",
+                color: activeTab === tab ? "var(--color-brand)" : "var(--color-text-dim)",
+                borderBottom: activeTab === tab
+                  ? "2px solid var(--color-brand)"
+                  : "2px solid transparent",
               }}
             >
               {tab}
@@ -66,28 +71,40 @@ export function MediaLibrary() {
         <div className="flex items-center gap-3">
           <div
             className="flex rounded-lg p-1"
-            style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+            style={{
+              backgroundColor: "var(--color-bg-card)",
+              border: "1px solid var(--color-border-glass)",
+            }}
           >
-            <button className="p-1.5 rounded-md text-white" style={{ backgroundColor: "rgba(255,255,255,0.08)" }}>
+            <button
+              className="p-1.5 rounded-md"
+              style={{ backgroundColor: "var(--color-brand)", color: "#fff" }}
+            >
               <GridIcon className="w-3.5 h-3.5" strokeWidth={1.5} />
             </button>
-            <button className="p-1.5 rounded-md text-[#555] hover:text-white transition-colors">
+            <button
+              className="p-1.5 rounded-md transition-colors"
+              style={{ color: "var(--color-text-dim)" }}
+            >
               <List className="w-3.5 h-3.5" strokeWidth={1.5} />
             </button>
           </div>
           <button
-            className="flex items-center gap-2 h-8 px-3 rounded-lg text-sm text-white transition-all hover:bg-white/5"
-            style={{ border: "1px solid rgba(255,255,255,0.08)" }}
+            className="flex items-center gap-2 h-8 px-3 rounded-lg text-sm transition-all hover:bg-white/5"
+            style={{
+              border: "1px solid var(--color-border-subtle)",
+              color: "var(--color-text-primary)",
+            }}
           >
-            Date Added <ChevronDown className="w-3.5 h-3.5 text-[#555]" strokeWidth={1.5} />
+            Date Added <ChevronDown className="w-3.5 h-3.5" strokeWidth={1.5} style={{ color: "var(--color-text-dim)" }} />
           </button>
           <button
             onClick={() => setBulkMode((v) => !v)}
             className="flex items-center gap-2 h-8 px-3 rounded-lg text-sm transition-all hover:bg-white/5"
             style={{
-              border: "1px solid rgba(255,255,255,0.08)",
-              color: bulkMode ? "#fff" : "#888",
-              backgroundColor: bulkMode ? "rgba(255,255,255,0.08)" : "transparent",
+              border: "1px solid var(--color-border-subtle)",
+              color: bulkMode ? "var(--color-text-primary)" : "var(--color-text-muted)",
+              backgroundColor: bulkMode ? "var(--color-brand-glow-sm)" : "transparent",
             }}
           >
             <Filter className="w-3.5 h-3.5" strokeWidth={1.5} /> Bulk Select
@@ -100,13 +117,18 @@ export function MediaLibrary() {
         <aside
           className="w-[220px] shrink-0 overflow-y-auto p-5"
           style={{
-            borderRight: "1px solid rgba(255,255,255,0.06)",
-            backgroundColor: "rgba(255,255,255,0.015)",
+            borderRight: "1px solid var(--color-border-subtle)",
+            backgroundColor: "var(--color-bg-surface)",
           }}
         >
           <div className="flex items-center justify-between mb-5">
-            <h3 className="text-white" style={{ fontSize: "13px", fontWeight: 500 }}>Filters</h3>
-            <button className="text-[#555] hover:text-white transition-colors" style={{ fontSize: "12px" }}>Clear all</button>
+            <h3 style={{ fontSize: "13px", fontWeight: 500, color: "var(--color-text-primary)" }}>Filters</h3>
+            <button
+              className="transition-colors hover:text-white"
+              style={{ fontSize: "12px", color: "var(--color-text-dim)" }}
+            >
+              Clear all
+            </button>
           </div>
 
           <FilterSection title="Media Type">
@@ -115,27 +137,36 @@ export function MediaLibrary() {
                 <div
                   className="w-4 h-4 rounded flex items-center justify-center transition-all"
                   style={{
-                    backgroundColor: filters[t.toLowerCase() as keyof typeof filters] ? "#fff" : "transparent",
-                    border: "1px solid " + (filters[t.toLowerCase() as keyof typeof filters] ? "#fff" : "rgba(255,255,255,0.15)"),
+                    backgroundColor: filters[t.toLowerCase() as keyof typeof filters]
+                      ? "var(--color-brand)"
+                      : "transparent",
+                    border: "1px solid " + (filters[t.toLowerCase() as keyof typeof filters]
+                      ? "var(--color-brand)"
+                      : "var(--color-border-subtle)"),
                   }}
                   onClick={() => setFilters((f) => ({ ...f, [t.toLowerCase()]: !f[t.toLowerCase() as keyof typeof f] }))}
                 >
-                  {filters[t.toLowerCase() as keyof typeof filters] && <Check className="w-3 h-3 text-black" />}
+                  {filters[t.toLowerCase() as keyof typeof filters] && (
+                    <Check className="w-3 h-3 text-white" />
+                  )}
                 </div>
-                <span className="text-sm text-[#888]">{t}</span>
+                <span className="text-sm" style={{ color: "var(--color-text-muted)" }}>{t}</span>
               </label>
             ))}
           </FilterSection>
 
           <FilterSection title="Status">
             {[
-              { label: "Ready", dot: "bg-white" },
-              { label: "Processing", dot: "bg-white animate-pulse" },
-              { label: "Failed", dot: "bg-[#444]" },
-            ].map(({ label, dot }) => (
+              { label: "Ready", color: "var(--color-accent-ok)" },
+              { label: "Processing", color: "var(--color-accent-warn)", pulse: true },
+              { label: "Failed", color: "var(--color-accent-err)" },
+            ].map(({ label, color, pulse }) => (
               <label key={label} className="flex items-center gap-2 cursor-pointer py-1">
-                <div className={cn("w-2 h-2 rounded-full shrink-0", dot)} />
-                <span className="text-sm text-[#888]">{label}</span>
+                <div
+                  className={cn("w-2 h-2 rounded-full shrink-0", pulse && "animate-pulse")}
+                  style={{ backgroundColor: color }}
+                />
+                <span className="text-sm" style={{ color: "var(--color-text-muted)" }}>{label}</span>
               </label>
             ))}
           </FilterSection>
@@ -143,7 +174,7 @@ export function MediaLibrary() {
           <FilterSection title="Has">
             {["Transcript", "Summary", "Keywords", "Notes"].map((f) => (
               <div key={f} className="flex items-center justify-between py-1">
-                <span className="text-sm text-[#888]">{f}</span>
+                <span className="text-sm" style={{ color: "var(--color-text-muted)" }}>{f}</span>
                 <MiniToggle />
               </div>
             ))}
@@ -152,13 +183,13 @@ export function MediaLibrary() {
           <FilterSection title="Date Added">
             <input
               type="date"
-              className="w-full rounded-lg px-2 py-1.5 text-sm text-[#888] mb-2 outline-none"
-              style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+              className="neu-input w-full px-2 py-1.5 text-sm mb-2 outline-none"
+              style={{ color: "var(--color-text-muted)" }}
             />
             <input
               type="date"
-              className="w-full rounded-lg px-2 py-1.5 text-sm text-[#888] outline-none"
-              style={{ backgroundColor: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
+              className="neu-input w-full px-2 py-1.5 text-sm outline-none"
+              style={{ color: "var(--color-text-muted)" }}
             />
           </FilterSection>
         </aside>
@@ -166,13 +197,20 @@ export function MediaLibrary() {
         {/* Content Area */}
         <main className="flex-1 overflow-y-auto p-6">
           <div className="flex items-center gap-3 mb-5">
-            <span className="text-[#888]" style={{ fontSize: "13px" }}>Showing {filtered.length} items</span>
+            <span style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>
+              Showing {filtered.length} items
+            </span>
             <div className="flex gap-2">
               {["Product", "Engineering"].map((chip) => (
                 <span
                   key={chip}
                   className="flex items-center gap-1 px-2 py-0.5 rounded-full cursor-pointer"
-                  style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)", fontSize: "12px", color: "#888" }}
+                  style={{
+                    backgroundColor: "var(--color-bg-card)",
+                    border: "1px solid var(--color-border-glass)",
+                    fontSize: "12px",
+                    color: "var(--color-text-muted)",
+                  }}
                 >
                   {chip} <X className="w-3 h-3 hover:text-white" />
                 </span>
@@ -195,21 +233,32 @@ export function MediaLibrary() {
 
           {/* Pagination */}
           <div className="flex items-center justify-center gap-2 mt-10 pb-4">
-            <button className="text-[#555] hover:text-white transition-colors px-2" style={{ fontSize: "13px" }}>←</button>
+            <button
+              className="transition-colors hover:text-white px-2"
+              style={{ fontSize: "13px", color: "var(--color-text-dim)" }}
+            >
+              ←
+            </button>
             {[1, 2, 3, 4, 5].map((p) => (
               <button
                 key={p}
                 className="w-7 h-7 rounded transition-all"
                 style={{
-                  color: p === 1 ? "#fff" : "#555",
-                  backgroundColor: p === 1 ? "rgba(255,255,255,0.1)" : "transparent",
+                  color: p === 1 ? "#fff" : "var(--color-text-dim)",
+                  backgroundColor: p === 1 ? "var(--color-brand-glow-sm)" : "transparent",
+                  border: p === 1 ? "1px solid var(--color-border-glass)" : "1px solid transparent",
                   fontSize: "13px",
                 }}
               >
                 {p}
               </button>
             ))}
-            <button className="text-[#555] hover:text-white transition-colors px-2" style={{ fontSize: "13px" }}>→</button>
+            <button
+              className="transition-colors hover:text-white px-2"
+              style={{ fontSize: "13px", color: "var(--color-text-dim)" }}
+            >
+              →
+            </button>
           </div>
         </main>
       </div>
@@ -217,25 +266,31 @@ export function MediaLibrary() {
       {/* Bulk action bar */}
       {selected.length > 0 && (
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-50">
-          <div
-            className="flex items-center gap-4 py-2.5 px-6 rounded-full"
-            style={{
-              backgroundColor: "rgba(20,20,20,0.95)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(255,255,255,0.15)",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.6)",
-            }}
-          >
-            <span className="text-white text-sm font-medium">{selected.length} selected</span>
-            <div style={{ width: "1px", height: "16px", backgroundColor: "rgba(255,255,255,0.15)" }} />
+          <div className="glass-card flex items-center gap-4 py-2.5 px-6 rounded-full">
+            <span className="text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
+              {selected.length} selected
+            </span>
+            <div style={{ width: "1px", height: "16px", backgroundColor: "var(--color-border-subtle)" }} />
             {["Download", "Add to Collection", "Add to Watchlist"].map((a) => (
-              <button key={a} className="text-white text-sm hover:text-white/70 transition-colors">{a}</button>
+              <button
+                key={a}
+                className="text-sm transition-colors hover:text-white"
+                style={{ color: "var(--color-text-muted)" }}
+              >
+                {a}
+              </button>
             ))}
-            <button className="text-[#555] text-sm hover:text-white transition-colors">Delete</button>
-            <div style={{ width: "1px", height: "16px", backgroundColor: "rgba(255,255,255,0.15)" }} />
+            <button
+              className="text-sm transition-colors hover:text-white"
+              style={{ color: "var(--color-accent-err)" }}
+            >
+              Delete
+            </button>
+            <div style={{ width: "1px", height: "16px", backgroundColor: "var(--color-border-subtle)" }} />
             <button
               onClick={() => setSelected([])}
-              className="text-[#555] hover:text-white transition-colors"
+              className="transition-colors hover:text-white"
+              style={{ color: "var(--color-text-dim)" }}
             >
               <X className="w-4 h-4" strokeWidth={1.5} />
             </button>
@@ -252,11 +307,14 @@ function MiniToggle() {
     <button
       onClick={() => setOn((v) => !v)}
       className="w-7 h-4 rounded-full p-0.5 transition-colors shrink-0"
-      style={{ backgroundColor: on ? "#fff" : "rgba(255,255,255,0.1)" }}
+      style={{ backgroundColor: on ? "var(--color-brand)" : "rgba(255,255,255,0.1)" }}
     >
       <div
         className="w-3 h-3 rounded-full transition-transform"
-        style={{ backgroundColor: on ? "#000" : "#555", transform: on ? "translateX(11px)" : "translateX(0)" }}
+        style={{
+          backgroundColor: on ? "#fff" : "var(--color-text-dim)",
+          transform: on ? "translateX(11px)" : "translateX(0)",
+        }}
       />
     </button>
   );
@@ -265,15 +323,26 @@ function MiniToggle() {
 function FilterSection({ title, children }: { title: string; children: React.ReactNode }) {
   const [open, setOpen] = useState(true);
   return (
-    <div className="pb-4 mb-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
+    <div
+      className="pb-4 mb-4"
+      style={{ borderBottom: "1px solid var(--color-border-subtle)" }}
+    >
       <button
         className="flex items-center justify-between w-full mb-3"
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="text-[#444] uppercase tracking-widest" style={{ fontSize: "11px" }}>{title}</span>
+        <span
+          className="uppercase tracking-widest"
+          style={{ fontSize: "11px", color: "var(--color-text-dim)" }}
+        >
+          {title}
+        </span>
         <ChevronDown
-          className="w-3 h-3 text-[#444] transition-transform"
-          style={{ transform: open ? "rotate(0deg)" : "rotate(-90deg)" }}
+          className="w-3 h-3 transition-transform"
+          style={{
+            color: "var(--color-text-dim)",
+            transform: open ? "rotate(0deg)" : "rotate(-90deg)",
+          }}
           strokeWidth={1.5}
         />
       </button>
@@ -296,43 +365,86 @@ function MediaCard({
       className="group rounded-xl overflow-hidden cursor-pointer transition-all"
       onClick={bulkMode ? onSelect : onClick}
       style={{
-        backgroundColor: "#1A1A1A",
+        backgroundColor: "var(--color-bg-card)",
+        backdropFilter: "var(--backdrop)",
+        WebkitBackdropFilter: "var(--backdrop)",
         boxShadow: selected
-          ? "0 0 0 2px #fff, 6px 6px 16px rgba(0,0,0,0.55), -4px -4px 10px rgba(255,255,255,0.03)"
-          : "6px 6px 16px rgba(0,0,0,0.55), -4px -4px 10px rgba(255,255,255,0.03)",
-        border: "1px solid " + (selected ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.06)"),
+          ? "var(--shadow-brand-glow)"
+          : "var(--shadow-card)",
+        border: selected
+          ? "1px solid var(--color-brand)"
+          : "1px solid var(--color-border-glass)",
+      }}
+      onMouseEnter={(e) => {
+        if (!selected) {
+          (e.currentTarget as HTMLDivElement).style.borderColor = "var(--color-brand)";
+          (e.currentTarget as HTMLDivElement).style.boxShadow = "var(--shadow-brand-glow)";
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!selected) {
+          (e.currentTarget as HTMLDivElement).style.borderColor = "var(--color-border-glass)";
+          (e.currentTarget as HTMLDivElement).style.boxShadow = "var(--shadow-card)";
+        }
       }}
     >
       {/* Thumbnail */}
       <div
         className="relative flex items-center justify-center"
-        style={{ aspectRatio: "16/9", backgroundColor: "#0d0d0d" }}
+        style={{ aspectRatio: "16/9", backgroundColor: "var(--color-bg-surface)" }}
       >
         {item.type === "video" ? (
-          <Play className="w-8 h-8 text-white/20 group-hover:text-white/60 transition-colors" strokeWidth={1.5} />
+          <Play
+            className="w-8 h-8 transition-colors"
+            strokeWidth={1.5}
+            style={{ color: "var(--color-text-dim)" }}
+          />
         ) : item.type === "audio" ? (
-          <Mic className="w-8 h-8 text-white/20 group-hover:text-white/60 transition-colors" strokeWidth={1.5} />
+          <Mic
+            className="w-8 h-8 transition-colors"
+            strokeWidth={1.5}
+            style={{ color: "var(--color-text-dim)" }}
+          />
         ) : (
-          <FileText className="w-8 h-8 text-white/20 group-hover:text-white/60 transition-colors" strokeWidth={1.5} />
+          <FileText
+            className="w-8 h-8 transition-colors"
+            strokeWidth={1.5}
+            style={{ color: "var(--color-text-dim)" }}
+          />
         )}
 
         {/* Type badge top-left */}
         <span
-          className="absolute top-2 left-2 px-1.5 py-0.5 rounded text-white"
-          style={{ fontSize: "10px", backgroundColor: "rgba(0,0,0,0.7)", border: "1px solid rgba(255,255,255,0.1)" }}
+          className="absolute top-2 left-2 px-1.5 py-0.5 rounded"
+          style={{
+            fontSize: "10px",
+            backgroundColor: "rgba(0,0,0,0.7)",
+            border: "1px solid var(--color-border-subtle)",
+            color: "var(--color-text-muted)",
+          }}
         >
           {item.type === "video" ? "MP4" : item.type === "audio" ? "WAV" : "PDF"}
         </span>
 
         {/* Bookmark top-right — hover only */}
-        <button className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity text-white/60 hover:text-white">
+        <button
+          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
+          style={{ color: "var(--color-text-muted)" }}
+        >
           <Bookmark className="w-4 h-4" strokeWidth={1.5} />
         </button>
 
         {/* Duration bottom-right */}
         <span
-          className="absolute bottom-2 right-2 font-mono text-white"
-          style={{ fontSize: "10px", backgroundColor: "rgba(0,0,0,0.7)", padding: "2px 6px", borderRadius: "4px", border: "1px solid rgba(255,255,255,0.08)" }}
+          className="absolute bottom-2 right-2 font-mono"
+          style={{
+            fontSize: "10px",
+            backgroundColor: "rgba(0,0,0,0.7)",
+            padding: "2px 6px",
+            borderRadius: "4px",
+            border: "1px solid var(--color-border-subtle)",
+            color: "var(--color-text-muted)",
+          }}
         >
           {item.time}
         </span>
@@ -342,19 +454,19 @@ function MediaCard({
           <div
             className="absolute top-2 left-2 w-5 h-5 rounded flex items-center justify-center z-10"
             style={{
-              backgroundColor: selected ? "#fff" : "rgba(0,0,0,0.6)",
-              border: "1px solid " + (selected ? "#fff" : "rgba(255,255,255,0.3)"),
+              backgroundColor: selected ? "var(--color-brand)" : "rgba(0,0,0,0.6)",
+              border: "1px solid " + (selected ? "var(--color-brand)" : "var(--color-border-subtle)"),
             }}
           >
-            {selected && <Check className="w-3 h-3 text-black" />}
+            {selected && <Check className="w-3 h-3 text-white" />}
           </div>
         )}
 
-        {/* Hover overlay actions */}
         <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
         <div className="absolute bottom-2 left-2 opacity-0 group-hover:opacity-100 transition-opacity flex gap-1">
           <button
-            className="p-1 rounded text-white/80 hover:text-white transition-colors hover:bg-black/40"
+            className="p-1 rounded transition-colors hover:bg-black/40"
+            style={{ color: "var(--color-text-muted)" }}
             onClick={(e) => { e.stopPropagation(); }}
           >
             <MoreHorizontal className="w-4 h-4" strokeWidth={1.5} />
@@ -364,28 +476,50 @@ function MediaCard({
 
       {/* Card body */}
       <div className="p-3">
-        <h4 className="text-white text-sm font-medium line-clamp-2 mb-2">{item.title}</h4>
+        <h4
+          className="text-sm font-medium line-clamp-2 mb-2"
+          style={{ color: "var(--color-text-primary)" }}
+        >
+          {item.title}
+        </h4>
         <div className="flex gap-1.5 mb-2">
           <span
-            className="px-1.5 py-0.5 rounded text-[#888]"
-            style={{ fontSize: "11px", backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.07)" }}
+            className="px-1.5 py-0.5 rounded"
+            style={{
+              fontSize: "11px",
+              backgroundColor: "var(--color-brand-glow-sm)",
+              border: "1px solid var(--color-border-glass)",
+              color: "var(--color-text-muted)",
+            }}
           >
             {item.lang}
           </span>
           <span
-            className="px-1.5 py-0.5 rounded text-[#888]"
-            style={{ fontSize: "11px", backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.07)" }}
+            className="px-1.5 py-0.5 rounded"
+            style={{
+              fontSize: "11px",
+              backgroundColor: "var(--color-brand-glow-sm)",
+              border: "1px solid var(--color-border-glass)",
+              color: "var(--color-text-muted)",
+            }}
           >
             {item.topic}
           </span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-[#555] font-mono" style={{ fontSize: "11px" }}>{item.size} · {item.uploaded}</span>
+          <span className="font-mono" style={{ fontSize: "11px", color: "var(--color-text-dim)" }}>
+            {item.size} · {item.uploaded}
+          </span>
           {item.status === "processing" && (
-            <span className="text-[#888] animate-pulse" style={{ fontSize: "11px" }}>Processing…</span>
+            <span
+              className="animate-pulse"
+              style={{ fontSize: "11px", color: "var(--color-accent-warn)" }}
+            >
+              Processing…
+            </span>
           )}
           {item.status === "failed" && (
-            <span className="text-[#555]" style={{ fontSize: "11px" }}>Failed</span>
+            <span style={{ fontSize: "11px", color: "var(--color-accent-err)" }}>Failed</span>
           )}
         </div>
       </div>

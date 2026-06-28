@@ -9,6 +9,7 @@ import { UploadDetail } from "./pages/UploadDetail";
 import { Settings } from "./pages/Settings";
 import { VideoViewer } from "./pages/VideoViewer";
 import { Watchlist } from "./pages/Watchlist";
+import { SearchResults } from "./pages/SearchResults";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
     path: "/",
     Component: Layout,
     children: [
+      { path: "search", Component: SearchResults },
       { path: "home", Component: Home },
       { path: "dashboard", Component: Dashboard },
       { path: "library", Component: MediaLibrary },
@@ -30,7 +32,7 @@ export const router = createBrowserRouter([
       { path: "collections", Component: () => (
         <div
           className="flex flex-col items-center justify-center h-full"
-          style={{ backgroundColor: "#1A1A1A", color: "#555", fontSize: "14px" }}
+          style={{ backgroundColor: "var(--color-bg-base)", color: "var(--color-text-dim)", fontSize: "14px" }}
         >
           Collections — coming soon
         </div>
@@ -38,7 +40,7 @@ export const router = createBrowserRouter([
       { path: "*", Component: () => (
         <div
           className="flex flex-col items-center justify-center h-full"
-          style={{ backgroundColor: "#1A1A1A", color: "#555", fontSize: "14px" }}
+          style={{ backgroundColor: "var(--color-bg-base)", color: "var(--color-text-dim)", fontSize: "14px" }}
         >
           Page not found
         </div>

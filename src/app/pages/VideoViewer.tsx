@@ -1,5 +1,5 @@
 import {
-  Play, Pause, SkipBack, SkipForward, Maximize, PictureInPicture,
+  Play, Pause, Maximize, PictureInPicture,
   Volume2, Globe, Scissors, Search, Download, Share2, RefreshCw,
   Clock, ChevronLeft, ChevronRight, BookOpen, Users, Box, Zap,
   BookMarked, List, Hash, AlignLeft,
@@ -78,36 +78,40 @@ export function VideoViewer() {
   return (
     <div
       className="flex h-full overflow-hidden"
-      style={{ backgroundColor: "#1A1A1A" }}
+      style={{ backgroundColor: "var(--color-bg-base)" }}
     >
       {/* LEFT COLUMN — 65% */}
       <div className="flex flex-col overflow-y-auto" style={{ width: "65%" }}>
         <div className="p-7 pb-4">
           {/* Breadcrumb */}
-          <p className="text-[#555] mb-5" style={{ fontSize: "12px" }}>
+          <p className="mb-5" style={{ fontSize: "12px", color: "var(--color-text-dim)" }}>
             <span className="hover:text-white cursor-pointer transition-colors">Library</span>
             <span className="mx-2">/</span>
-            <span className="text-white">Product Demo Q2 2026</span>
+            <span style={{ color: "var(--color-text-primary)" }}>Product Demo Q2 2026</span>
           </p>
 
-          {/* Video container — 16:9, black bg */}
+          {/* Video container */}
           <div
             className="w-full rounded-xl overflow-hidden relative flex items-center justify-center"
-            style={{ aspectRatio: "16/9", backgroundColor: "#000", border: "1px solid rgba(255,255,255,0.06)" }}
+            style={{
+              aspectRatio: "16/9",
+              backgroundColor: "#000",
+              border: "1px solid var(--color-border-subtle)",
+            }}
           >
             <button
               onClick={() => setIsPlaying((p) => !p)}
               className="w-16 h-16 rounded-full flex items-center justify-center transition-all hover:scale-110"
               style={{
-                backgroundColor: "rgba(255,255,255,0.1)",
+                backgroundColor: "var(--color-brand-glow-sm)",
                 backdropFilter: "blur(8px)",
-                border: "1px solid rgba(255,255,255,0.2)",
+                border: "1px solid var(--color-border-glass)",
               }}
             >
               {isPlaying ? (
-                <Pause className="w-7 h-7 text-white fill-white" />
+                <Pause className="w-7 h-7 fill-white" style={{ color: "var(--color-brand)" }} />
               ) : (
-                <Play className="w-7 h-7 text-white fill-white ml-1" />
+                <Play className="w-7 h-7 fill-white ml-1" style={{ color: "var(--color-brand)" }} />
               )}
             </button>
           </div>
@@ -116,9 +120,12 @@ export function VideoViewer() {
           <div className="mt-3 mb-2 relative">
             <div
               className="w-full h-1.5 rounded-full cursor-pointer group relative"
-              style={{ backgroundColor: "rgba(255,255,255,0.1)" }}
+              style={{ backgroundColor: "rgba(255,255,255,0.08)" }}
             >
-              <div className="absolute left-0 top-0 h-full bg-white rounded-full w-[23%]" />
+              <div
+                className="absolute left-0 top-0 h-full rounded-full w-[23%]"
+                style={{ backgroundColor: "var(--color-brand)" }}
+              />
               {/* Chapter markers */}
               {[15, 26, 42, 68, 81].map((pct) => (
                 <div
@@ -128,22 +135,21 @@ export function VideoViewer() {
                     left: `${pct}%`,
                     borderLeft: "4px solid transparent",
                     borderRight: "4px solid transparent",
-                    borderTop: "6px solid rgba(255,255,255,0.5)",
+                    borderTop: "6px solid rgba(4,51,191,0.6)",
                   }}
                 />
               ))}
-              <div className="absolute top-1/2 left-[23%] -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div
+                className="absolute top-1/2 left-[23%] -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                style={{ backgroundColor: "var(--color-brand)" }}
+              />
             </div>
           </div>
 
           {/* Controls bar */}
           <div
-            className="rounded-xl px-4 py-3 flex items-center justify-between"
-            style={{
-              backgroundColor: "rgba(255,255,255,0.04)",
-              backdropFilter: "blur(16px)",
-              border: "1px solid rgba(255,255,255,0.07)",
-            }}
+            className="glass-card px-4 py-3 flex items-center justify-between"
+            style={{ borderRadius: "var(--radius-md)" }}
           >
             {/* Left cluster */}
             <div className="flex items-center gap-2">
@@ -151,7 +157,8 @@ export function VideoViewer() {
               <CtrlBtn><span className="text-xs font-mono">-10s</span></CtrlBtn>
               <button
                 onClick={() => setIsPlaying((p) => !p)}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-white transition-all hover:bg-white/10"
+                className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:bg-white/10"
+                style={{ color: "var(--color-text-primary)" }}
               >
                 {isPlaying ? (
                   <Pause className="w-5 h-5 fill-white" />
@@ -161,18 +168,21 @@ export function VideoViewer() {
               </button>
               <CtrlBtn><span className="text-xs font-mono">+10s</span></CtrlBtn>
               <CtrlBtn><ChevronRight className="w-4 h-4" strokeWidth={1.5} /></CtrlBtn>
-              <span className="text-[#555] font-mono ml-2" style={{ fontSize: "11px" }}>14:32 / 1:02:18</span>
+              <span className="font-mono ml-2" style={{ fontSize: "11px", color: "var(--color-text-dim)" }}>
+                14:32 / 1:02:18
+              </span>
             </div>
 
             {/* Right cluster */}
-            <div className="flex items-center gap-3 text-[#555]">
+            <div className="flex items-center gap-3" style={{ color: "var(--color-text-dim)" }}>
               <CtrlBtn><Volume2 className="w-4 h-4" strokeWidth={1.5} /></CtrlBtn>
               <span
-                className="px-2 py-0.5 rounded-full text-white cursor-pointer hover:bg-white/10"
+                className="px-2 py-0.5 rounded-full cursor-pointer hover:bg-white/10"
                 style={{
                   fontSize: "12px",
-                  backgroundColor: "rgba(255,255,255,0.06)",
-                  border: "1px solid rgba(255,255,255,0.1)",
+                  backgroundColor: "var(--color-brand-glow-sm)",
+                  border: "1px solid var(--color-border-glass)",
+                  color: "var(--color-brand)",
                 }}
               >
                 1x
@@ -180,47 +190,62 @@ export function VideoViewer() {
               <CtrlBtn><span className="text-xs">CC</span></CtrlBtn>
               <CtrlBtn><Globe className="w-4 h-4" strokeWidth={1.5} /></CtrlBtn>
               <CtrlBtn><Scissors className="w-4 h-4" strokeWidth={1.5} /></CtrlBtn>
-              <div style={{ width: "1px", height: "16px", backgroundColor: "rgba(255,255,255,0.12)" }} />
+              <div style={{ width: "1px", height: "16px", backgroundColor: "var(--color-border-subtle)" }} />
               <CtrlBtn><PictureInPicture className="w-4 h-4" strokeWidth={1.5} /></CtrlBtn>
               <CtrlBtn><Maximize className="w-4 h-4" strokeWidth={1.5} /></CtrlBtn>
             </div>
           </div>
 
-          {/* Waveform strip */}
+          {/* Waveform strip — brand-tinted */}
           <div className="mt-3 flex items-center gap-0.5 h-6">
             {Array.from({ length: 80 }).map((_, i) => {
-              const h = 3 + Math.round(Math.sin(i * 0.4) * 6 + Math.random() * 5);
+              const h = 3 + Math.round(Math.sin(i * 0.4) * 6 + (((i * 7919) % 17) / 17) * 5);
+              const isPast = i < 18;
               return (
                 <div
                   key={i}
                   className="w-0.5 rounded-full"
-                  style={{ height: `${h}px`, backgroundColor: "rgba(255,255,255,0.15)" }}
+                  style={{
+                    height: `${h}px`,
+                    backgroundColor: isPast
+                      ? "rgba(4,51,191,0.6)"
+                      : "rgba(255,255,255,0.1)",
+                  }}
                 />
               );
             })}
           </div>
 
           {/* Related */}
-          <h3 className="text-[#888] mt-7 mb-4" style={{ fontSize: "13px" }}>Related</h3>
+          <h3 className="mt-7 mb-4" style={{ fontSize: "13px", color: "var(--color-text-muted)" }}>
+            Related
+          </h3>
           <div className="grid grid-cols-3 gap-4 pb-6">
             {[
               { title: "Q1 Demo Recording", time: "58:20" },
-              { title: "Feature Spec Draft", type: "document", time: "4 pages" },
-              { title: "Interview with PM", type: "audio", time: "24:15" },
+              { title: "Feature Spec Draft", time: "4 pages" },
+              { title: "Interview with PM", time: "24:15" },
             ].map((item, i) => (
               <div key={i} className="group cursor-pointer">
                 <div
-                  className="w-full rounded-lg mb-2 relative flex items-center justify-center overflow-hidden transition-all group-hover:border-white/20"
+                  className="w-full rounded-lg mb-2 relative flex items-center justify-center overflow-hidden transition-all group-hover:border-brand"
                   style={{
                     aspectRatio: "16/9",
-                    backgroundColor: "#111",
-                    border: "1px solid rgba(255,255,255,0.07)",
+                    backgroundColor: "var(--color-bg-surface)",
+                    border: "1px solid var(--color-border-subtle)",
                   }}
                 >
-                  <Play className="w-6 h-6 text-white/20 group-hover:text-white/60 transition-colors" />
+                  <Play
+                    className="w-6 h-6 transition-colors"
+                    style={{ color: "var(--color-text-dim)" }}
+                  />
                 </div>
-                <p className="text-white text-xs font-medium truncate">{item.title}</p>
-                <p className="text-[#555] mt-0.5 font-mono" style={{ fontSize: "11px" }}>{item.time}</p>
+                <p className="text-xs font-medium truncate" style={{ color: "var(--color-text-primary)" }}>
+                  {item.title}
+                </p>
+                <p className="mt-0.5 font-mono" style={{ fontSize: "11px", color: "var(--color-text-dim)" }}>
+                  {item.time}
+                </p>
               </div>
             ))}
           </div>
@@ -232,14 +257,14 @@ export function VideoViewer() {
         className="flex flex-col"
         style={{
           width: "35%",
-          borderLeft: "1px solid rgba(255,255,255,0.06)",
-          backgroundColor: "rgba(255,255,255,0.02)",
+          borderLeft: "1px solid var(--color-border-subtle)",
+          backgroundColor: "var(--color-bg-surface)",
         }}
       >
         {/* Scrollable tab bar */}
         <div
           className="flex overflow-x-auto shrink-0"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+          style={{ borderBottom: "1px solid var(--color-border-subtle)" }}
         >
           {TABS.map(({ id }) => (
             <button
@@ -247,8 +272,10 @@ export function VideoViewer() {
               onClick={() => setActiveTab(id)}
               className="px-4 py-3 text-sm whitespace-nowrap transition-all shrink-0"
               style={{
-                color: activeTab === id ? "#fff" : "#555",
-                borderBottom: activeTab === id ? "2px solid #fff" : "2px solid transparent",
+                color: activeTab === id ? "var(--color-brand)" : "var(--color-text-dim)",
+                borderBottom: activeTab === id
+                  ? "2px solid var(--color-brand)"
+                  : "2px solid transparent",
                 fontWeight: activeTab === id ? 500 : 400,
               }}
             >
@@ -262,14 +289,15 @@ export function VideoViewer() {
           {activeTab === "Transcript" && (
             <>
               <div className="relative mb-4 shrink-0">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#444]" strokeWidth={1.5} />
+                <Search
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4"
+                  strokeWidth={1.5}
+                  style={{ color: "var(--color-text-dim)" }}
+                />
                 <input
-                  className="w-full h-9 rounded-lg pl-9 pr-3 text-sm text-white placeholder:text-[#444] outline-none"
+                  className="neu-input w-full h-9 pl-9 pr-3 text-sm outline-none"
                   placeholder="Search transcript…"
-                  style={{
-                    backgroundColor: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.07)",
-                  }}
+                  style={{ border: "1px solid var(--color-border-subtle)" }}
                 />
               </div>
               <div className="flex-1 space-y-3">
@@ -280,25 +308,31 @@ export function VideoViewer() {
                     style={
                       line.active
                         ? {
-                            borderLeft: "2px solid #fff",
-                            backgroundColor: "rgba(255,255,255,0.04)",
+                            borderLeft: "2px solid var(--color-brand)",
+                            backgroundColor: "var(--color-brand-glow-sm)",
                             paddingLeft: "10px",
                           }
                         : { borderLeft: "2px solid transparent" }
                     }
                   >
                     <button
-                      className="text-white rounded px-1.5 py-0.5 shrink-0 font-mono hover:bg-white/10 transition-colors"
+                      className="rounded px-1.5 py-0.5 shrink-0 font-mono hover:bg-white/10 transition-colors"
                       style={{
                         fontSize: "11px",
-                        backgroundColor: "rgba(255,255,255,0.07)",
-                        border: "1px solid rgba(255,255,255,0.1)",
+                        backgroundColor: "var(--color-brand-glow-sm)",
+                        border: "1px solid var(--color-border-glass)",
+                        color: "var(--color-brand)",
                       }}
                     >
                       {line.time}
                     </button>
                     <p
-                      className={cn("text-sm leading-relaxed", line.active ? "text-white" : "text-[#888]")}
+                      className={cn("text-sm leading-relaxed")}
+                      style={{
+                        color: line.active
+                          ? "var(--color-text-primary)"
+                          : "var(--color-text-muted)",
+                      }}
                     >
                       {line.text}
                     </p>
@@ -316,15 +350,24 @@ export function VideoViewer() {
                     className="w-28 h-1 rounded-full overflow-hidden"
                     style={{ backgroundColor: "rgba(255,255,255,0.08)" }}
                   >
-                    <div className="h-full bg-white w-[96%]" />
+                    <div
+                      className="h-full w-[96%]"
+                      style={{ backgroundColor: "var(--color-brand)" }}
+                    />
                   </div>
-                  <span className="text-[#555]" style={{ fontSize: "12px" }}>96% confidence</span>
+                  <span style={{ fontSize: "12px", color: "var(--color-text-dim)" }}>96% confidence</span>
                 </div>
-                <button className="flex items-center gap-1.5 text-[#888] hover:text-white transition-colors" style={{ fontSize: "12px" }}>
+                <button
+                  className="flex items-center gap-1.5 transition-colors hover:text-white"
+                  style={{ fontSize: "12px", color: "var(--color-text-muted)" }}
+                >
                   <RefreshCw className="w-3.5 h-3.5" strokeWidth={1.5} /> Regenerate
                 </button>
               </div>
-              <div className="text-sm text-white leading-[1.7] space-y-4">
+              <div
+                className="text-sm leading-[1.7] space-y-4"
+                style={{ color: "var(--color-text-primary)" }}
+              >
                 <p>The Q2 product demonstration focuses primarily on the new user interface updates and improvements to the media processing pipeline.</p>
                 <p>Key highlights include the revamped dashboard which now surfaces upload velocity and processing queue status more prominently. The presenter notes these changes address direct feedback from the Q1 beta group.</p>
                 <p>Additionally, the media library introduces cross-format bulk actions, allowing users to apply tags and move files regardless of media type.</p>
@@ -346,20 +389,30 @@ export function VideoViewer() {
                     <span
                       key={kw.word}
                       className="cursor-pointer hover:text-white transition-colors"
-                      style={{ fontSize: `${size}px`, color: `rgba(255,255,255,${opacity})`, fontWeight: kw.count > 8 ? 600 : 400 }}
+                      style={{
+                        fontSize: `${size}px`,
+                        color: `rgba(232,236,244,${opacity})`,
+                        fontWeight: kw.count > 8 ? 600 : 400,
+                      }}
                     >
                       {kw.word}
                     </span>
                   );
                 })}
               </div>
-              <div style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }} className="pt-4 space-y-2">
+              <div
+                style={{ borderTop: "1px solid var(--color-border-subtle)" }}
+                className="pt-4 space-y-2"
+              >
                 {KEYWORDS.map((kw) => (
                   <div key={kw.word} className="flex items-center gap-3 text-sm">
-                    <span className="text-white flex-1">{kw.word}</span>
-                    <span className="text-[#555] font-mono w-6 text-right" style={{ fontSize: "12px" }}>{kw.count}</span>
-                    <span className="text-[#444] font-mono w-12 text-right" style={{ fontSize: "11px" }}>{kw.first}</span>
-                    <button className="text-[#555] hover:text-white transition-colors" style={{ fontSize: "11px" }}>
+                    <span className="flex-1" style={{ color: "var(--color-text-primary)" }}>{kw.word}</span>
+                    <span className="font-mono w-6 text-right" style={{ fontSize: "12px", color: "var(--color-text-dim)" }}>{kw.count}</span>
+                    <span className="font-mono w-12 text-right" style={{ fontSize: "11px", color: "var(--color-text-dim)" }}>{kw.first}</span>
+                    <button
+                      className="transition-colors hover:text-white"
+                      style={{ fontSize: "11px", color: "var(--color-brand)" }}
+                    >
                       Find
                     </button>
                   </div>
@@ -373,18 +426,33 @@ export function VideoViewer() {
               {KEY_MOMENTS.map((m, i) => (
                 <div
                   key={i}
-                  className="rounded-lg p-3 flex gap-3"
-                  style={{ backgroundColor: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)" }}
+                  className="glass-card p-3 flex gap-3"
+                  style={{ borderRadius: "var(--radius-sm)" }}
                 >
                   <button
-                    className="text-white rounded px-1.5 py-0.5 shrink-0 font-mono hover:bg-white/10 transition-colors self-start mt-0.5"
-                    style={{ fontSize: "11px", backgroundColor: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.1)" }}
+                    className="rounded px-1.5 py-0.5 shrink-0 font-mono hover:bg-white/10 transition-colors self-start mt-0.5"
+                    style={{
+                      fontSize: "11px",
+                      backgroundColor: "var(--color-brand-glow-sm)",
+                      border: "1px solid var(--color-border-glass)",
+                      color: "var(--color-brand)",
+                    }}
                   >
                     {m.time}
                   </button>
                   <div className="flex-1">
-                    <p className="text-white text-sm leading-relaxed">&ldquo;{m.quote}&rdquo;</p>
-                    <button className="text-[#555] hover:text-white transition-colors mt-2" style={{ fontSize: "12px" }}>Jump To</button>
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "var(--color-text-primary)" }}
+                    >
+                      &ldquo;{m.quote}&rdquo;
+                    </p>
+                    <button
+                      className="mt-2 transition-colors hover:text-white"
+                      style={{ fontSize: "12px", color: "var(--color-text-dim)" }}
+                    >
+                      Jump To
+                    </button>
                   </div>
                 </div>
               ))}
@@ -394,22 +462,31 @@ export function VideoViewer() {
           {activeTab === "People" && (
             <div className="space-y-3">
               {PEOPLE.map((p) => (
-                <div key={p.name} className="flex items-center gap-3 p-2 rounded-md hover:bg-white/[0.03] transition-colors cursor-pointer">
+                <div
+                  key={p.name}
+                  className="flex items-center gap-3 p-2 rounded-md cursor-pointer transition-colors hover:bg-white/[0.03]"
+                >
                   <div
                     className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
                     style={{
-                      backgroundColor: "#1A1A1A",
-                      boxShadow: "3px 3px 7px rgba(0,0,0,0.5), -2px -2px 5px rgba(255,255,255,0.025)",
+                      backgroundColor: "var(--color-bg-base)",
+                      border: "1px solid var(--color-border-glass)",
                       fontSize: "11px",
-                      color: "#888",
+                      color: "var(--color-text-muted)",
                       fontWeight: 600,
                     }}
                   >
                     {p.initials}
                   </div>
-                  <span className="text-white text-sm flex-1">{p.name}</span>
-                  <span className="text-[#555] font-mono" style={{ fontSize: "12px" }}>{p.count}×</span>
-                  <span className="text-[#444] font-mono" style={{ fontSize: "11px" }}>{p.first}</span>
+                  <span className="text-sm flex-1" style={{ color: "var(--color-text-primary)" }}>
+                    {p.name}
+                  </span>
+                  <span className="font-mono" style={{ fontSize: "12px", color: "var(--color-text-dim)" }}>
+                    {p.count}&times;
+                  </span>
+                  <span className="font-mono" style={{ fontSize: "11px", color: "var(--color-text-dim)" }}>
+                    {p.first}
+                  </span>
                 </div>
               ))}
             </div>
@@ -418,10 +495,19 @@ export function VideoViewer() {
           {activeTab === "Objects" && (
             <div className="space-y-3">
               {OBJECTS.map((obj) => (
-                <div key={obj.label} className="flex items-center gap-3 p-2 rounded-md hover:bg-white/[0.03] transition-colors cursor-pointer">
-                  <span className="text-white text-sm flex-1">{obj.label}</span>
-                  <span className="text-[#555] font-mono" style={{ fontSize: "12px" }}>{obj.count}×</span>
-                  <span className="text-[#444] font-mono" style={{ fontSize: "11px" }}>{obj.first}</span>
+                <div
+                  key={obj.label}
+                  className="flex items-center gap-3 p-2 rounded-md cursor-pointer transition-colors hover:bg-white/[0.03]"
+                >
+                  <span className="text-sm flex-1" style={{ color: "var(--color-text-primary)" }}>
+                    {obj.label}
+                  </span>
+                  <span className="font-mono" style={{ fontSize: "12px", color: "var(--color-text-dim)" }}>
+                    {obj.count}&times;
+                  </span>
+                  <span className="font-mono" style={{ fontSize: "11px", color: "var(--color-text-dim)" }}>
+                    {obj.first}
+                  </span>
                 </div>
               ))}
             </div>
@@ -435,10 +521,13 @@ export function VideoViewer() {
                 { label: "Laughter", count: 8, first: "05:10" },
                 { label: "Q&A Start", count: 1, first: "50:15" },
               ].map((ev) => (
-                <div key={ev.label} className="flex items-center gap-3 p-2 rounded-md hover:bg-white/[0.03] transition-colors cursor-pointer">
-                  <span className="text-white text-sm flex-1">{ev.label}</span>
-                  <span className="text-[#555] font-mono" style={{ fontSize: "12px" }}>{ev.count}×</span>
-                  <span className="text-[#444] font-mono" style={{ fontSize: "11px" }}>{ev.first}</span>
+                <div
+                  key={ev.label}
+                  className="flex items-center gap-3 p-2 rounded-md cursor-pointer transition-colors hover:bg-white/[0.03]"
+                >
+                  <span className="text-sm flex-1" style={{ color: "var(--color-text-primary)" }}>{ev.label}</span>
+                  <span className="font-mono" style={{ fontSize: "12px", color: "var(--color-text-dim)" }}>{ev.count}&times;</span>
+                  <span className="font-mono" style={{ fontSize: "11px", color: "var(--color-text-dim)" }}>{ev.first}</span>
                 </div>
               ))}
             </div>
@@ -449,29 +538,59 @@ export function VideoViewer() {
               {/* Formatting toolbar */}
               <div
                 className="flex items-center gap-1 p-2 rounded-t-lg shrink-0"
-                style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.07)" }}
+                style={{
+                  backgroundColor: "var(--color-bg-base)",
+                  border: "1px solid var(--color-border-subtle)",
+                }}
               >
                 {["B", "I", "U"].map((f) => (
-                  <button key={f} className="w-7 h-7 flex items-center justify-center text-white rounded hover:bg-white/10 transition-colors text-xs font-serif">{f}</button>
+                  <button
+                    key={f}
+                    className="w-7 h-7 flex items-center justify-center rounded hover:bg-white/10 transition-colors text-xs font-serif"
+                    style={{ color: "var(--color-text-primary)" }}
+                  >
+                    {f}
+                  </button>
                 ))}
-                <div style={{ width: "1px", height: "14px", backgroundColor: "rgba(255,255,255,0.12)", margin: "0 4px" }} />
+                <div
+                  style={{
+                    width: "1px", height: "14px",
+                    backgroundColor: "var(--color-border-subtle)",
+                    margin: "0 4px",
+                  }}
+                />
                 {["H1", "H2"].map((h) => (
-                  <button key={h} className="w-8 h-7 flex items-center justify-center text-[#888] hover:text-white rounded hover:bg-white/10 transition-colors" style={{ fontSize: "11px" }}>{h}</button>
+                  <button
+                    key={h}
+                    className="w-8 h-7 flex items-center justify-center rounded hover:bg-white/10 transition-colors"
+                    style={{ fontSize: "11px", color: "var(--color-text-muted)" }}
+                  >
+                    {h}
+                  </button>
                 ))}
-                <div style={{ width: "1px", height: "14px", backgroundColor: "rgba(255,255,255,0.12)", margin: "0 4px" }} />
-                <button className="w-7 h-7 flex items-center justify-center text-[#888] hover:text-white rounded hover:bg-white/10 transition-colors">
+                <div
+                  style={{
+                    width: "1px", height: "14px",
+                    backgroundColor: "var(--color-border-subtle)",
+                    margin: "0 4px",
+                  }}
+                />
+                <button
+                  className="w-7 h-7 flex items-center justify-center rounded hover:bg-white/10 transition-colors"
+                  style={{ color: "var(--color-text-muted)" }}
+                >
                   <Clock className="w-3.5 h-3.5" strokeWidth={1.5} />
                 </button>
               </div>
               <textarea
-                className="flex-1 w-full p-4 text-sm text-white resize-none outline-none rounded-b-lg"
+                className="neu-input flex-1 w-full p-4 text-sm resize-none outline-none rounded-b-lg"
                 placeholder="Type your notes here…"
                 style={{
-                  backgroundColor: "#161616",
-                  boxShadow: "inset 4px 4px 10px rgba(0,0,0,0.4), inset -3px -3px 8px rgba(255,255,255,0.02)",
-                  border: "1px solid rgba(255,255,255,0.06)",
+                  border: "1px solid var(--color-border-subtle)",
                   borderTop: "none",
                   lineHeight: 1.7,
+                  color: "var(--color-text-primary)",
+                  borderRadius: "0 0 var(--radius-md) var(--radius-md)",
                 }}
                 defaultValue={"Great overview of the dashboard.\n\nFollow-up items:\n- Is the 10GB limit final for Enterprise?\n- Can we customize the KPI cards?\n\n[14:41] Bulk actions — exactly what marketing asked for."}
               />
@@ -487,13 +606,33 @@ export function VideoViewer() {
               {CHAPTERS.map((ch) => (
                 <div
                   key={ch.num}
-                  className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/[0.03] transition-colors cursor-pointer"
-                  style={{ border: "1px solid rgba(255,255,255,0.05)" }}
+                  className="flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors hover:bg-white/[0.03]"
+                  style={{ border: "1px solid var(--color-border-subtle)" }}
                 >
-                  <span className="text-[#444] w-5 text-right shrink-0 font-mono" style={{ fontSize: "12px" }}>{ch.num}</span>
-                  <span className="text-white text-sm flex-1">{ch.title}</span>
-                  <span className="text-[#444] font-mono shrink-0" style={{ fontSize: "11px" }}>{ch.ts}</span>
-                  <span className="text-[#333] font-mono shrink-0" style={{ fontSize: "11px" }}>{ch.dur}</span>
+                  <span
+                    className="w-5 text-right shrink-0 font-mono"
+                    style={{ fontSize: "12px", color: "var(--color-text-dim)" }}
+                  >
+                    {ch.num}
+                  </span>
+                  <span
+                    className="text-sm flex-1"
+                    style={{ color: "var(--color-text-primary)" }}
+                  >
+                    {ch.title}
+                  </span>
+                  <span
+                    className="font-mono shrink-0"
+                    style={{ fontSize: "11px", color: "var(--color-text-dim)" }}
+                  >
+                    {ch.ts}
+                  </span>
+                  <span
+                    className="font-mono shrink-0"
+                    style={{ fontSize: "11px", color: "var(--color-text-dim)" }}
+                  >
+                    {ch.dur}
+                  </span>
                 </div>
               ))}
             </div>
@@ -503,11 +642,14 @@ export function VideoViewer() {
         {/* Bottom bar */}
         <div
           className="h-12 flex items-center justify-between px-4 shrink-0"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+          style={{ borderTop: "1px solid var(--color-border-subtle)" }}
         >
           <GhostBtn icon={<Download className="w-3.5 h-3.5" strokeWidth={1.5} />}>Download</GhostBtn>
           <GhostBtn icon={<Share2 className="w-3.5 h-3.5" strokeWidth={1.5} />}>Share</GhostBtn>
-          <button className="text-[#444] hover:text-white transition-colors" style={{ fontSize: "12px" }}>
+          <button
+            className="transition-colors hover:text-white"
+            style={{ fontSize: "12px", color: "var(--color-text-dim)" }}
+          >
             Report AI Error
           </button>
         </div>
@@ -518,7 +660,10 @@ export function VideoViewer() {
 
 function CtrlBtn({ children }: { children: React.ReactNode }) {
   return (
-    <button className="flex items-center justify-center text-[#555] hover:text-white transition-colors p-1.5 rounded-md hover:bg-white/5">
+    <button
+      className="flex items-center justify-center transition-colors p-1.5 rounded-md hover:bg-white/5"
+      style={{ color: "var(--color-text-dim)" }}
+    >
       {children}
     </button>
   );
@@ -527,8 +672,11 @@ function CtrlBtn({ children }: { children: React.ReactNode }) {
 function GhostBtn({ children, icon }: { children: React.ReactNode; icon?: React.ReactNode }) {
   return (
     <button
-      className="flex items-center gap-1.5 px-3 h-8 rounded-[8px] text-white text-xs transition-all hover:bg-white/5 active:scale-[0.97]"
-      style={{ border: "1px solid rgba(255,255,255,0.1)" }}
+      className="flex items-center gap-1.5 px-3 h-8 rounded-[8px] text-xs transition-all hover:bg-white/5 active:scale-[0.97]"
+      style={{
+        border: "1px solid var(--color-border-subtle)",
+        color: "var(--color-text-muted)",
+      }}
     >
       {icon}
       {children}

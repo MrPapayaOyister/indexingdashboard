@@ -33,19 +33,24 @@ const topPeople = [
 ];
 
 const topObjects = [
-  { label: "Laptop", count: 89, icon: "💻" },
-  { label: "Whiteboard", count: 62, icon: "🖊️" },
-  { label: "Screen", count: 54, icon: "🖥️" },
-  { label: "Document", count: 41, icon: "📄" },
-  { label: "Camera", count: 28, icon: "📷" },
+  { label: "Laptop", count: 89 },
+  { label: "Whiteboard", count: 62 },
+  { label: "Screen", count: 54 },
+  { label: "Document", count: 41 },
+  { label: "Camera", count: 28 },
 ];
 
 export function Dashboard() {
   return (
-    <div className="flex-1 overflow-auto p-8 space-y-7 h-full" style={{ backgroundColor: "#1A1A1A" }}>
+    <div
+      className="flex-1 overflow-auto p-8 space-y-7 h-full"
+      style={{ backgroundColor: "var(--color-bg-base)" }}
+    >
       {/* Inline page header */}
       <header className="flex justify-between items-center">
-        <h1 className="text-white" style={{ fontSize: "24px", fontWeight: 700 }}>Dashboard</h1>
+        <h1 style={{ fontSize: "24px", fontWeight: 700, color: "var(--color-text-primary)" }}>
+          Dashboard
+        </h1>
         <div className="flex gap-3">
           <GhostBtn icon={<Calendar className="w-4 h-4" strokeWidth={1.5} />} label="Last 30 Days" />
           <GhostBtn icon={<Download className="w-4 h-4" strokeWidth={1.5} />} label="Export" />
@@ -58,30 +63,36 @@ export function Dashboard() {
           {/* Thumbnail */}
           <div
             className="w-[280px] shrink-0 flex items-center justify-center border-r"
-            style={{ backgroundColor: "#111", borderColor: "rgba(255,255,255,0.06)" }}
+            style={{
+              backgroundColor: "var(--color-bg-surface)",
+              borderColor: "var(--color-border-subtle)",
+            }}
           >
             <button
               className="w-14 h-14 rounded-full flex items-center justify-center transition-all hover:scale-110"
               style={{
-                backgroundColor: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.1)",
+                backgroundColor: "var(--color-brand-glow-sm)",
+                border: "1px solid var(--color-border-glass)",
               }}
             >
-              <Play className="w-6 h-6 text-white ml-1" strokeWidth={1.5} />
+              <Play className="w-6 h-6 ml-1" strokeWidth={1.5} style={{ color: "var(--color-brand)" }} />
             </button>
           </div>
           {/* Content */}
           <div className="flex-1 p-6 flex flex-col justify-center">
             <span
-              className="text-[#888] uppercase tracking-widest mb-2"
-              style={{ fontSize: "11px" }}
+              className="uppercase tracking-widest mb-2"
+              style={{ fontSize: "11px", color: "var(--color-text-muted)" }}
             >
               AI PICK
             </span>
-            <h2 className="text-white mb-2" style={{ fontSize: "20px", fontWeight: 700 }}>
+            <h2
+              className="mb-2"
+              style={{ fontSize: "20px", fontWeight: 700, color: "var(--color-text-primary)" }}
+            >
               Platform Vision Keynote Analysis
             </h2>
-            <p className="text-[#888] text-sm mb-4 line-clamp-2">
+            <p className="text-sm mb-4 line-clamp-2" style={{ color: "var(--color-text-muted)" }}>
               Executive team discussed the shift towards unified intelligence processing and the upcoming
               release. Key topics: Architecture, API, QA.
             </p>
@@ -91,7 +102,8 @@ export function Dashboard() {
                 <GlassChip>API Changes (24m)</GlassChip>
               </div>
               <button
-                className="h-9 px-4 rounded-[8px] bg-white text-black text-sm font-medium transition-all active:scale-[0.97] hover:bg-white/90"
+                className="h-9 px-4 rounded-[8px] text-sm font-medium transition-all active:scale-[0.97] hover:brightness-110"
+                style={{ backgroundColor: "var(--color-brand)", color: "#fff" }}
               >
                 Open
               </button>
@@ -102,70 +114,73 @@ export function Dashboard() {
 
       {/* Section 2 — KPI Row */}
       <div className="grid grid-cols-4 gap-5">
-        <NeuCard>
-          <div className="text-[#888] text-sm mb-2">Total Uploads</div>
-          <div className="text-white mb-1" style={{ fontSize: "28px", fontWeight: 600 }}>2,523</div>
-          <div className="text-white text-xs">+18% vs last month</div>
-        </NeuCard>
-        <NeuCard>
+        <GlassPanel>
+          <div className="text-sm mb-2" style={{ color: "var(--color-text-muted)" }}>Total Uploads</div>
+          <div className="mb-1" style={{ fontSize: "28px", fontWeight: 600, color: "var(--color-text-primary)" }}>2,523</div>
+          <div className="text-xs" style={{ color: "var(--color-accent-ok)" }}>+18% vs last month</div>
+        </GlassPanel>
+        <GlassPanel>
           <div className="flex justify-between items-start mb-2">
-            <div className="text-[#888] text-sm">Processing Queue</div>
-            <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse shrink-0" />
+            <div className="text-sm" style={{ color: "var(--color-text-muted)" }}>Processing Queue</div>
+            <span
+              className="w-2.5 h-2.5 rounded-full animate-pulse shrink-0"
+              style={{ backgroundColor: "var(--color-accent-warn)" }}
+            />
           </div>
-          <div className="text-white mb-1" style={{ fontSize: "28px", fontWeight: 600 }}>7 items</div>
-          <div className="text-[#888] text-xs">Avg 4 min each</div>
-        </NeuCard>
-        <NeuCard>
-          <div className="text-[#888] text-sm mb-2">AI Summaries</div>
-          <div className="text-white mb-1" style={{ fontSize: "28px", fontWeight: 600 }}>2,104</div>
-          <div className="text-[#888] text-xs">96.2% confidence avg</div>
-        </NeuCard>
-        <NeuCard>
-          <div className="text-[#888] text-sm mb-2">Unique Topics</div>
-          <div className="text-white mb-1" style={{ fontSize: "28px", fontWeight: 600 }}>38</div>
-          <div className="text-[#888] text-xs">Extracted across files</div>
-        </NeuCard>
+          <div className="mb-1" style={{ fontSize: "28px", fontWeight: 600, color: "var(--color-text-primary)" }}>7 items</div>
+          <div className="text-xs" style={{ color: "var(--color-text-muted)" }}>Avg 4 min each</div>
+        </GlassPanel>
+        <GlassPanel>
+          <div className="text-sm mb-2" style={{ color: "var(--color-text-muted)" }}>AI Summaries</div>
+          <div className="mb-1" style={{ fontSize: "28px", fontWeight: 600, color: "var(--color-text-primary)" }}>2,104</div>
+          <div className="text-xs" style={{ color: "var(--color-text-muted)" }}>96.2% confidence avg</div>
+        </GlassPanel>
+        <GlassPanel>
+          <div className="text-sm mb-2" style={{ color: "var(--color-text-muted)" }}>Unique Topics</div>
+          <div className="mb-1" style={{ fontSize: "28px", fontWeight: 600, color: "var(--color-text-primary)" }}>38</div>
+          <div className="text-xs" style={{ color: "var(--color-text-muted)" }}>Extracted across files</div>
+        </GlassPanel>
       </div>
 
       {/* Section 3 — Charts Row (60/40) */}
       <div className="grid grid-cols-5 gap-5">
         <GlassPanel className="col-span-3 flex flex-col">
-          <h3 className="text-white text-sm font-medium mb-5">Upload Velocity</h3>
+          <h3 className="text-sm font-medium mb-5" style={{ color: "var(--color-text-primary)" }}>
+            Upload Velocity
+          </h3>
           <div className="flex-1 min-h-[200px]">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={velocityData} margin={{ top: 5, right: 10, left: -25, bottom: 0 }}>
                 <XAxis
                   dataKey="date"
-                  stroke="#444"
                   fontSize={11}
                   tickLine={false}
                   axisLine={false}
-                  tick={{ fill: "#444" }}
+                  tick={{ fill: "var(--color-text-dim)" }}
                 />
                 <YAxis
-                  stroke="#444"
                   fontSize={11}
                   tickLine={false}
                   axisLine={false}
-                  tick={{ fill: "#444" }}
+                  tick={{ fill: "var(--color-text-dim)" }}
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#111",
-                    border: "1px solid rgba(255,255,255,0.1)",
+                    backgroundColor: "var(--color-bg-surface)",
+                    border: "1px solid var(--color-border-glass)",
                     borderRadius: "8px",
-                    color: "#fff",
+                    color: "var(--color-text-primary)",
                     fontSize: "12px",
                   }}
-                  cursor={{ stroke: "rgba(255,255,255,0.1)", strokeWidth: 1 }}
+                  cursor={{ stroke: "var(--color-border-subtle)", strokeWidth: 1 }}
                 />
                 <Line
                   type="monotone"
                   dataKey="count"
-                  stroke="#FFFFFF"
+                  stroke="var(--color-brand)"
                   strokeWidth={1.5}
                   dot={false}
-                  activeDot={{ r: 4, fill: "#FFFFFF", stroke: "#111", strokeWidth: 2 }}
+                  activeDot={{ r: 4, fill: "var(--color-brand)", stroke: "var(--color-bg-base)", strokeWidth: 2 }}
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -173,18 +188,28 @@ export function Dashboard() {
         </GlassPanel>
 
         <GlassPanel className="col-span-2">
-          <h3 className="text-white text-sm font-medium mb-5">Language Distribution</h3>
+          <h3 className="text-sm font-medium mb-5" style={{ color: "var(--color-text-primary)" }}>
+            Language Distribution
+          </h3>
           <div className="space-y-4">
             {languages.map((item) => (
               <div key={item.lang} className="flex items-center gap-3">
-                <div className="w-16 text-sm text-[#888] shrink-0">{item.lang}</div>
+                <div className="w-16 text-sm shrink-0" style={{ color: "var(--color-text-muted)" }}>
+                  {item.lang}
+                </div>
                 <div
                   className="flex-1 h-[3px] rounded-full overflow-hidden"
-                  style={{ backgroundColor: "rgba(255,255,255,0.08)" }}
+                  style={{ backgroundColor: "var(--color-border-subtle)" }}
                 >
-                  <div className="h-full bg-white rounded-full" style={{ width: `${item.pct}%` }} />
+                  <div
+                    className="h-full rounded-full"
+                    style={{ width: `${item.pct}%`, backgroundColor: "var(--color-brand)" }}
+                  />
                 </div>
-                <div className="w-8 text-right text-[#888] shrink-0" style={{ fontSize: "11px" }}>
+                <div
+                  className="w-8 text-right shrink-0"
+                  style={{ fontSize: "11px", color: "var(--color-text-muted)" }}
+                >
                   {item.pct}%
                 </div>
               </div>
@@ -195,9 +220,11 @@ export function Dashboard() {
 
       {/* Section 4 — Three equal columns */}
       <div className="grid grid-cols-3 gap-5">
-        {/* Trending Keywords — word cloud */}
+        {/* Trending Keywords */}
         <GlassPanel>
-          <h3 className="text-white text-sm font-medium mb-5">Trending Keywords</h3>
+          <h3 className="text-sm font-medium mb-5" style={{ color: "var(--color-text-primary)" }}>
+            Trending Keywords
+          </h3>
           <div className="flex flex-wrap gap-2 items-center min-h-[160px]">
             {keywords.map((kw) => {
               const opacity = 0.3 + (kw.weight / 9) * 0.7;
@@ -208,7 +235,7 @@ export function Dashboard() {
                   className="cursor-pointer hover:text-white transition-colors"
                   style={{
                     fontSize: `${size}px`,
-                    color: `rgba(255,255,255,${opacity})`,
+                    color: `rgba(232, 236, 244, ${opacity})`,
                     fontWeight: kw.weight > 6 ? 600 : 400,
                   }}
                 >
@@ -221,27 +248,34 @@ export function Dashboard() {
 
         {/* Top People */}
         <GlassPanel>
-          <h3 className="text-white text-sm font-medium mb-5">Top People</h3>
+          <h3 className="text-sm font-medium mb-5" style={{ color: "var(--color-text-primary)" }}>
+            Top People
+          </h3>
           <div className="space-y-3">
             {topPeople.map((person, i) => (
               <div key={person.name} className="flex items-center gap-3">
-                <span className="text-[#555] w-4 text-right shrink-0" style={{ fontSize: "12px" }}>
+                <span
+                  className="w-4 text-right shrink-0"
+                  style={{ fontSize: "12px", color: "var(--color-text-dim)" }}
+                >
                   {i + 1}
                 </span>
                 <div
                   className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
                   style={{
-                    backgroundColor: "#1A1A1A",
-                    boxShadow: "3px 3px 7px rgba(0,0,0,0.5), -2px -2px 5px rgba(255,255,255,0.025)",
+                    backgroundColor: "var(--color-bg-surface)",
+                    border: "1px solid var(--color-border-glass)",
                     fontSize: "10px",
-                    color: "#888",
+                    color: "var(--color-text-muted)",
                     fontWeight: 600,
                   }}
                 >
                   {person.initials}
                 </div>
-                <span className="text-white text-sm flex-1 truncate">{person.name}</span>
-                <span className="text-[#555] shrink-0" style={{ fontSize: "12px" }}>
+                <span className="text-sm flex-1 truncate" style={{ color: "var(--color-text-primary)" }}>
+                  {person.name}
+                </span>
+                <span className="shrink-0" style={{ fontSize: "12px", color: "var(--color-text-dim)" }}>
                   {person.count}
                 </span>
               </div>
@@ -251,25 +285,22 @@ export function Dashboard() {
 
         {/* Top Objects */}
         <GlassPanel>
-          <h3 className="text-white text-sm font-medium mb-5">Top Objects</h3>
+          <h3 className="text-sm font-medium mb-5" style={{ color: "var(--color-text-primary)" }}>
+            Top Objects
+          </h3>
           <div className="space-y-3">
             {topObjects.map((obj, i) => (
               <div key={obj.label} className="flex items-center gap-3">
-                <span className="text-[#555] w-4 text-right shrink-0" style={{ fontSize: "12px" }}>
+                <span
+                  className="w-4 text-right shrink-0"
+                  style={{ fontSize: "12px", color: "var(--color-text-dim)" }}
+                >
                   {i + 1}
                 </span>
-                <div
-                  className="w-7 h-7 rounded-full flex items-center justify-center shrink-0"
-                  style={{
-                    backgroundColor: "#1A1A1A",
-                    boxShadow: "3px 3px 7px rgba(0,0,0,0.5), -2px -2px 5px rgba(255,255,255,0.025)",
-                    fontSize: "14px",
-                  }}
-                >
-                  {obj.icon}
-                </div>
-                <span className="text-white text-sm flex-1 truncate">{obj.label}</span>
-                <span className="text-[#555] shrink-0" style={{ fontSize: "12px" }}>
+                <span className="text-sm flex-1 truncate" style={{ color: "var(--color-text-primary)" }}>
+                  {obj.label}
+                </span>
+                <span className="shrink-0" style={{ fontSize: "12px", color: "var(--color-text-dim)" }}>
                   {obj.count}
                 </span>
               </div>
@@ -281,19 +312,24 @@ export function Dashboard() {
       {/* Section 5 — Processing Jobs Table */}
       <GlassPanel>
         <div className="flex justify-between items-center mb-5">
-          <h3 className="text-white text-sm font-medium">Processing Jobs</h3>
-          <button className="text-[#555] hover:text-white transition-colors" style={{ fontSize: "12px" }}>
+          <h3 className="text-sm font-medium" style={{ color: "var(--color-text-primary)" }}>
+            Processing Jobs
+          </h3>
+          <button
+            className="transition-colors hover:text-white"
+            style={{ fontSize: "12px", color: "var(--color-text-dim)" }}
+          >
             View all jobs →
           </button>
         </div>
         <table className="w-full text-left">
           <thead>
-            <tr className="border-b" style={{ borderColor: "rgba(255,255,255,0.06)" }}>
+            <tr style={{ borderBottom: "1px solid var(--color-border-subtle)" }}>
               {["FILE NAME", "TYPE", "STATUS", "DURATION", "UPLOADED", "ACTIONS"].map((h) => (
                 <th
                   key={h}
-                  className="pb-3 text-[#444] tracking-widest"
-                  style={{ fontSize: "11px", fontWeight: 500 }}
+                  className="pb-3 tracking-widest"
+                  style={{ fontSize: "11px", fontWeight: 500, color: "var(--color-text-dim)" }}
                 >
                   {h}
                 </th>
@@ -322,28 +358,7 @@ function GlassPanel({ children, className = "", padding = "p-6" }: {
 }) {
   return (
     <div
-      className={`rounded-xl ${padding} ${className}`}
-      style={{
-        backgroundColor: "rgba(255,255,255,0.04)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-        border: "1px solid rgba(255,255,255,0.07)",
-        boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-function NeuCard({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      className="rounded-xl p-5"
-      style={{
-        backgroundColor: "#1A1A1A",
-        boxShadow: "6px 6px 16px rgba(0,0,0,0.55), -4px -4px 10px rgba(255,255,255,0.03)",
-      }}
+      className={`glass-card ${padding} ${className}`}
     >
       {children}
     </div>
@@ -353,10 +368,13 @@ function NeuCard({ children }: { children: React.ReactNode }) {
 function GhostBtn({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
     <button
-      className="flex items-center gap-2 px-4 h-9 rounded-[10px] text-white text-sm transition-all hover:bg-white/5 active:scale-[0.97]"
-      style={{ border: "1px solid rgba(255,255,255,0.1)" }}
+      className="flex items-center gap-2 px-4 h-9 rounded-[10px] text-sm transition-all active:scale-[0.97] hover:bg-white/5"
+      style={{
+        border: "1px solid var(--color-border-subtle)",
+        color: "var(--color-text-primary)",
+      }}
     >
-      <span className="text-[#888]">{icon}</span>
+      <span style={{ color: "var(--color-text-muted)" }}>{icon}</span>
       {label}
     </button>
   );
@@ -365,11 +383,12 @@ function GhostBtn({ icon, label }: { icon: React.ReactNode; label: string }) {
 function GlassChip({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="px-3 py-1 rounded-full text-white"
+      className="px-3 py-1 rounded-full"
       style={{
-        backgroundColor: "rgba(255,255,255,0.06)",
-        border: "1px solid rgba(255,255,255,0.1)",
+        backgroundColor: "var(--color-brand-glow-sm)",
+        border: "1px solid var(--color-border-glass)",
         fontSize: "12px",
+        color: "var(--color-text-muted)",
       }}
     >
       {children}
@@ -381,14 +400,15 @@ function StatusPill({ status }: { status: "ready" | "processing" | "failed" }) {
   if (status === "ready") {
     return (
       <span
-        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-white"
+        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full"
         style={{
-          border: "1px solid rgba(255,255,255,0.2)",
-          backgroundColor: "rgba(255,255,255,0.04)",
+          border: "1px solid rgba(0, 212, 160, 0.3)",
+          backgroundColor: "rgba(0, 212, 160, 0.08)",
           fontSize: "11px",
+          color: "var(--color-accent-ok)",
         }}
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-white" />
+        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent-ok)" }} />
         READY
       </span>
     );
@@ -396,28 +416,33 @@ function StatusPill({ status }: { status: "ready" | "processing" | "failed" }) {
   if (status === "processing") {
     return (
       <span
-        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-white"
+        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full"
         style={{
-          border: "1px solid rgba(255,255,255,0.15)",
-          backgroundColor: "rgba(255,255,255,0.04)",
+          border: "1px solid rgba(245, 166, 35, 0.3)",
+          backgroundColor: "rgba(245, 166, 35, 0.08)",
           fontSize: "11px",
+          color: "var(--color-accent-warn)",
         }}
       >
-        <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+        <span
+          className="w-1.5 h-1.5 rounded-full animate-pulse"
+          style={{ backgroundColor: "var(--color-accent-warn)" }}
+        />
         PROCESSING
       </span>
     );
   }
   return (
     <span
-      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[#888]"
+      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full"
       style={{
-        border: "1px solid rgba(255,255,255,0.06)",
-        backgroundColor: "transparent",
+        border: "1px solid rgba(255, 77, 106, 0.3)",
+        backgroundColor: "rgba(255, 77, 106, 0.08)",
         fontSize: "11px",
+        color: "var(--color-accent-err)",
       }}
     >
-      <span className="w-1.5 h-1.5 rounded-full bg-[#555]" />
+      <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent-err)" }} />
       FAILED
     </span>
   );
@@ -436,26 +461,36 @@ function JobRow({
   return (
     <tr
       className="group transition-colors"
-      style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}
+      style={{ borderBottom: "1px solid var(--color-border-subtle)" }}
     >
       <td className="py-3.5">
         <div className="flex items-center gap-2">
-          <Icon className="w-4 h-4 text-[#555] group-hover:text-white transition-colors" strokeWidth={1.5} />
-          <span className="text-white text-sm">{name}</span>
+          <Icon
+            className="w-4 h-4 transition-colors"
+            strokeWidth={1.5}
+            style={{ color: "var(--color-text-dim)" }}
+          />
+          <span className="text-sm" style={{ color: "var(--color-text-primary)" }}>{name}</span>
         </div>
       </td>
-      <td className="py-3.5 text-[#888] text-sm">{type}</td>
+      <td className="py-3.5 text-sm" style={{ color: "var(--color-text-muted)" }}>{type}</td>
       <td className="py-3.5">
         <StatusPill status={status} />
       </td>
-      <td className="py-3.5 text-[#888] text-sm font-mono">{dur}</td>
-      <td className="py-3.5 text-[#555] text-sm">{uploaded}</td>
+      <td className="py-3.5 text-sm font-mono" style={{ color: "var(--color-text-muted)" }}>{dur}</td>
+      <td className="py-3.5 text-sm" style={{ color: "var(--color-text-dim)" }}>{uploaded}</td>
       <td className="py-3.5">
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button className="w-8 h-8 flex items-center justify-center rounded-md text-[#555] hover:text-white transition-colors hover:bg-white/5">
+          <button
+            className="w-8 h-8 flex items-center justify-center rounded-md transition-colors hover:bg-white/5"
+            style={{ color: "var(--color-text-dim)" }}
+          >
             <Eye className="w-4 h-4" strokeWidth={1.5} />
           </button>
-          <button className="w-8 h-8 flex items-center justify-center rounded-md text-[#555] hover:text-white transition-colors hover:bg-white/5">
+          <button
+            className="w-8 h-8 flex items-center justify-center rounded-md transition-colors hover:bg-white/5"
+            style={{ color: "var(--color-text-dim)" }}
+          >
             <Download className="w-4 h-4" strokeWidth={1.5} />
           </button>
         </div>
